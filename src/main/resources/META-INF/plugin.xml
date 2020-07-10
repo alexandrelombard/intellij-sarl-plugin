@@ -1,0 +1,31 @@
+<idea-plugin>
+    <id>io.sarl.idea</id>
+    <name>SARL Language Support</name>
+    <vendor email="alexandre.lombard@utbm.fr" url="http://www.ciad-lab.fr">CIAD</vendor>
+
+    <description><![CDATA[
+    Support of the multi-agent SARL language for Intellij Idea.
+    ]]></description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="SARL File" implementationClass="io.sarl.idea.SarlFileType"
+                  fieldName="INSTANCE" language="SARL" extensions="sarl" />
+        <lang.parserDefinition
+                language="SARL"
+                implementationClass="io.sarl.idea.language.SarlParserDefinition" />
+        <lang.syntaxHighlighterFactory
+                language="SARL"
+                implementationClass="io.sarl.idea.language.SarlSyntaxHighlighterFactory" />
+        <lang.psiStructureViewFactory
+                language="SARL"
+                implementationClass="io.sarl.idea.language.SarlStructureViewFactory" />
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
