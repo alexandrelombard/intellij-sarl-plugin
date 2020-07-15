@@ -76,6 +76,7 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   "def"                    { return DEF; }
   "uses"                   { return USES; }
   "var"                    { return VAR; }
+  "DOT"                    { return DOT; }
 
   {STRING}                 { return STRING; }
   {NUMBER}                 { return NUMBER; }
