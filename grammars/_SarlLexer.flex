@@ -69,6 +69,7 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   "on"                     { return ON; }
   "val"                    { return VAL; }
   "return"                 { return RETURN; }
+  "occurrence"             { return OCCURRENCE; }
   "new"                    { return NEW; }
   "def"                    { return DEF; }
   "uses"                   { return USES; }

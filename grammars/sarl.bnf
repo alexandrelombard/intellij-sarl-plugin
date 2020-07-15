@@ -51,6 +51,7 @@
     on = 'on'
     val = 'val'
     return = 'return'
+    occurrence = 'occurrence'
 
     STRING = 'regexp:"[^"]*"'
     NUMBER = 'regexp:[0-9]+'
@@ -97,13 +98,13 @@ capacity_body ::= (member_declaration | function_declaration)+
 agent_body ::= (uses_declaration | member_declaration | constructor_declaration | on_declaration | function_declaration)+
 behavior_body ::= (uses_declaration | member_declaration | constructor_declaration | on_declaration | function_declaration)+
 
-constructor_declaration ::= visibility_modifier? abstract? new LP parameter_list? RP function_body?
+constructor_declaration ::= visibility_modifier? abstract? new LP parameter_declaration_list? RP function_body?
 member_declaration ::= visibility_modifier? (val_declaration | var_declaration)
-function_declaration ::= visibility_modifier? abstract? def SIMPLE_IDENTIFIER LP parameter_list? RP function_body?
+function_declaration ::= visibility_modifier? abstract? def SIMPLE_IDENTIFIER LP parameter_declaration_list? RP function_body?
 on_declaration ::= on type_identifier function_body?
 function_body ::= LB statement_list RB
-parameter_list ::= parameter (COMMA parameter)*
-parameter ::= SIMPLE_IDENTIFIER variable_type
+parameter_declaration_list ::= parameter_declaration (COMMA parameter_declaration)*
+parameter_declaration ::= SIMPLE_IDENTIFIER variable_type
 
 uses_declaration ::= uses type_identifier (COMMA type_identifier)*
 val_declaration ::= val SIMPLE_IDENTIFIER variable_type?
@@ -114,9 +115,11 @@ statement_list ::= statement*
 statement ::=
     val_declaration_statement |
     var_declaration_statement |
-    return_statement
+    return_statement |
+    function_call_statement
 val_declaration_statement ::= val_declaration
 var_declaration_statement ::= var_declaration
+function_call_statement ::= function_call_expr
 return_statement ::= return expr
 
 expr ::=
@@ -129,7 +132,7 @@ expr ::=
 private unary_group ::= unary_plus_expr | unary_min_expr
 private mul_group ::= mul_expr | div_expr
 private add_group ::= plus_expr | minus_expr
-private primary_group ::= ref_expr | literal_expr | paren_expr
+private primary_group ::= ref_expr | function_call_expr | lambda_expr | literal_expr | paren_expr | occurrence_expr
 
 assign_expr ::= expr OP_EQ expr { rightAssociative=true }
 unary_min_expr ::= OP_MINUS expr
@@ -140,5 +143,13 @@ minus_expr ::= expr OP_MINUS expr
 plus_expr ::= expr OP_PLUS expr
 paren_expr ::= '(' expr ')'
 
+lambda_expr ::= '[' (parameter_declaration_list '|')? function_body ']'
+
+occurrence_expr ::= occurrence
+
+function_call_expr ::= SIMPLE_IDENTIFIER LP parameter_list? RP
 ref_expr ::= SIMPLE_IDENTIFIER
 literal_expr ::= NUMBER | STRING
+
+parameter_list ::= parameter (COMMA parameter)*
+parameter ::= expr
