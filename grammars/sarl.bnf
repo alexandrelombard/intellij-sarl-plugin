@@ -20,6 +20,8 @@
   tokens = [
     LB = '{'
     RB = '}'
+    LBR = '['
+    RBR = ']'
     LP = '('
     RP = ')'
     LT = '<'
@@ -107,9 +109,10 @@ parameter_declaration_list ::= parameter_declaration (COMMA parameter_declaratio
 parameter_declaration ::= SIMPLE_IDENTIFIER variable_type
 
 uses_declaration ::= uses type_identifier (COMMA type_identifier)*
-val_declaration ::= val SIMPLE_IDENTIFIER variable_type?
-var_declaration ::= var SIMPLE_IDENTIFIER variable_type?
+val_declaration ::= val SIMPLE_IDENTIFIER variable_type? variable_initializer?
+var_declaration ::= var SIMPLE_IDENTIFIER variable_type? variable_initializer?
 variable_type ::= COLON type_identifier
+variable_initializer ::= OP_EQ expr
 
 statement_list ::= statement*
 statement ::=
@@ -143,7 +146,7 @@ minus_expr ::= expr OP_MINUS expr
 plus_expr ::= expr OP_PLUS expr
 paren_expr ::= '(' expr ')'
 
-lambda_expr ::= '[' (parameter_declaration_list '|')? function_body ']'
+lambda_expr ::= LBR (parameter_declaration_list '|')? statement_list RBR
 
 occurrence_expr ::= occurrence
 

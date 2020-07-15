@@ -40,6 +40,8 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
 
   "{"                      { return LB; }
   "}"                      { return RB; }
+  "["                      { return LBR; }
+  "]"                      { return RBR; }
   "("                      { return LP; }
   ")"                      { return RP; }
   "<"                      { return LT; }
