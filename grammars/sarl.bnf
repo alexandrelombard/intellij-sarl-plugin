@@ -29,6 +29,7 @@
     COMMA = ','
     COLON = ':'
     SEMICOLON = ';'
+    DOT = '.'
 
     OP_EQ = '='
     OP_MINUS = '-'
@@ -54,6 +55,7 @@
     val = 'val'
     return = 'return'
     occurrence = 'occurrence'
+    this = 'this'
 
     STRING = 'regexp:"[^"]*"'
     NUMBER = 'regexp:[0-9]+'
@@ -135,7 +137,7 @@ expr ::=
 private unary_group ::= unary_plus_expr | unary_min_expr
 private mul_group ::= mul_expr | div_expr
 private add_group ::= plus_expr | minus_expr
-private primary_group ::= dot_expr | function_call_expr | lambda_expr | ref_expr | literal_expr | paren_expr | occurrence_expr
+private primary_group ::= dot_expr | function_call_expr | lambda_expr | ref_expr | literal_expr | paren_expr
 
 assign_expr ::= expr OP_EQ expr { rightAssociative=true }
 unary_min_expr ::= OP_MINUS expr
@@ -145,14 +147,12 @@ mul_expr ::= expr OP_TIMES expr
 minus_expr ::= expr OP_MINUS expr
 plus_expr ::= expr OP_PLUS expr
 paren_expr ::= '(' expr ')'
-dot_expr ::= DOT expr
+dot_expr ::= expr DOT expr
 
 lambda_expr ::= LBR (parameter_declaration_list '|')? statement_list RBR
 
-occurrence_expr ::= occurrence
-
 function_call_expr ::= SIMPLE_IDENTIFIER LP parameter_list? RP
-ref_expr ::= SIMPLE_IDENTIFIER
+ref_expr ::= occurrence | this | SIMPLE_IDENTIFIER
 literal_expr ::= NUMBER | STRING
 
 parameter_list ::= parameter (COMMA parameter)*

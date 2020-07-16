@@ -49,6 +49,7 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   ","                      { return COMMA; }
   ":"                      { return COLON; }
   ";"                      { return SEMICOLON; }
+  "."                      { return DOT; }
   "="                      { return OP_EQ; }
   "-"                      { return OP_MINUS; }
   "+"                      { return OP_PLUS; }
@@ -72,11 +73,11 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   "val"                    { return VAL; }
   "return"                 { return RETURN; }
   "occurrence"             { return OCCURRENCE; }
+  "this"                   { return THIS; }
   "new"                    { return NEW; }
   "def"                    { return DEF; }
   "uses"                   { return USES; }
   "var"                    { return VAR; }
-  "DOT"                    { return DOT; }
 
   {STRING}                 { return STRING; }
   {NUMBER}                 { return NUMBER; }

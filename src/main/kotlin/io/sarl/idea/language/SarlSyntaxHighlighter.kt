@@ -47,7 +47,8 @@ class SarlSyntaxHighlighter : SyntaxHighlighterBase() {
                 SarlTypes.ON,
                 SarlTypes.RETURN,
                 SarlTypes.IMPORT,
-                SarlTypes.OCCURRENCE -> KEYWORD_KEYS
+                SarlTypes.OCCURRENCE,
+                SarlTypes.THIS -> KEYWORD_KEYS
             else -> EMPTY_KEYS
         }
     }
