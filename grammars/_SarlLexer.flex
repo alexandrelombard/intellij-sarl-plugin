@@ -49,6 +49,10 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   ":"                      { return COLON; }
   ";"                      { return SEMICOLON; }
   "."                      { return DOT; }
+  "=="                     { return OP_EQUAL; }
+  "!="                     { return OP_NOT_EQUAL; }
+  "&&"                     { return OP_AND; }
+  "||"                     { return OP_OR; }
   "="                      { return OP_EQ; }
   "-"                      { return OP_MINUS; }
   "+"                      { return OP_PLUS; }
