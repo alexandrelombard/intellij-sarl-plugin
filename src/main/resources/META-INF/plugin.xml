@@ -12,6 +12,7 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <annotator language="SARL" implementationClass="io.sarl.idea.language.SarlAnnotator" />
         <fileType name="SARL File" implementationClass="io.sarl.idea.SarlFileType"
                   fieldName="INSTANCE" language="SARL" extensions="sarl" />
         <lang.parserDefinition
@@ -23,6 +24,9 @@
         <lang.psiStructureViewFactory
                 language="SARL"
                 implementationClass="io.sarl.idea.language.SarlStructureViewFactory" />
+        <lang.formatter
+                language="SARL"
+                implementationClass="io.sarl.idea.language.SarlFormattingModelBuilder" />
     </extensions>
 
     <actions>
