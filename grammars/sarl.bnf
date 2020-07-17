@@ -137,9 +137,10 @@ expr ::=
 private unary_group ::= unary_plus_expr | unary_min_expr
 private mul_group ::= mul_expr | div_expr
 private add_group ::= plus_expr | minus_expr
-private primary_group ::= dot_expr | function_call_expr | lambda_expr | ref_expr | literal_expr | paren_expr
+private primary_group ::= function_call_expr | lambda_expr | field_access_expr | ref_expr | literal_expr | paren_expr
 
-assign_expr ::= expr OP_EQ expr { rightAssociative=true }
+assign_expr ::= expr assign_op expr { rightAssociative=true }
+assign_op ::= '=' | '*=' | '/=' | '%=' | '+=' | '-='
 unary_min_expr ::= OP_MINUS expr
 unary_plus_expr ::= OP_PLUS expr
 div_expr ::= expr OP_DIV expr
@@ -147,7 +148,7 @@ mul_expr ::= expr OP_TIMES expr
 minus_expr ::= expr OP_MINUS expr
 plus_expr ::= expr OP_PLUS expr
 paren_expr ::= '(' expr ')'
-dot_expr ::= expr DOT expr
+field_access_expr ::= expr DOT expr
 
 lambda_expr ::= LBR (parameter_declaration_list '|')? statement_list RBR
 
