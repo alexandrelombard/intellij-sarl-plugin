@@ -56,6 +56,10 @@
     return = 'return'
     occurrence = 'occurrence'
     this = 'this'
+    if = 'if'
+    else = 'else'
+    break = 'break'
+    continue = 'continue'
 
     STRING = 'regexp:"[^"]*"'
     NUMBER = 'regexp:[0-9]+'
@@ -63,7 +67,7 @@
     IMPORT_PACKAGE = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*\.\*'
     SIMPLE_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
 //    DOT_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*'
-    DOT_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
+//    DOT_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
     LINE_COMMENT = 'regexp://.*'
     BLOCK_COMMENT = 'regexp:/\*.*?\*/'
     WHITE_SPACE = 'regexp:\s+'
@@ -72,9 +76,9 @@
 
 sarl_file ::= package_declaration? import_declarations? type_declaration?
 
-package_declaration ::= package DOT_IDENTIFIER
+package_declaration ::= package identifier
 import_declarations ::= import_declaration+
-import_declaration ::= import (IMPORT_PACKAGE | SIMPLE_IDENTIFIER | DOT_IDENTIFIER)
+import_declaration ::= import (IMPORT_PACKAGE | identifier)
 
 private type_declaration ::= class_declaration |
         interface_declaration |
@@ -84,16 +88,17 @@ private type_declaration ::= class_declaration |
         skill_declaration |
         capacity_declaration
 
-class_declaration ::= visibility_modifier? abstract? class type_identifier LB class_body? RB
+class_declaration ::= visibility_modifier? abstract? class identifier LB class_body? RB
 interface_declaration ::= visibility_modifier? interface LB interface_body RB
-agent_declaration ::= agent type_identifier LB agent_body? RB
-event_declaration ::= event type_identifier LB event_body? RB
-skill_declaration ::= skill type_identifier LB skill_body? RB
-behavior_declaration ::= abstract? behavior type_identifier LB behavior_body? RB
-capacity_declaration ::= capacity type_identifier LB capacity_body? RB
+agent_declaration ::= agent identifier LB agent_body? RB
+event_declaration ::= event identifier LB event_body? RB
+skill_declaration ::= skill identifier LB skill_body? RB
+behavior_declaration ::= abstract? behavior identifier LB behavior_body? RB
+capacity_declaration ::= capacity identifier LB capacity_body? RB
 visibility_modifier ::= public | private | protected
 
-type_identifier ::= (DOT_IDENTIFIER | SIMPLE_IDENTIFIER)
+identifier ::= SIMPLE_IDENTIFIER DOT identifier | SIMPLE_IDENTIFIER
+//type_identifier ::= (DOT_IDENTIFIER | SIMPLE_IDENTIFIER)
 
 class_body ::= (member_declaration | constructor_declaration | function_declaration)+
 event_body ::= (member_declaration | constructor_declaration | function_declaration)+
@@ -106,15 +111,15 @@ behavior_body ::= (uses_declaration | member_declaration | constructor_declarati
 constructor_declaration ::= visibility_modifier? abstract? new LP parameter_declaration_list? RP function_body?
 member_declaration ::= visibility_modifier? (val_declaration | var_declaration)
 function_declaration ::= visibility_modifier? abstract? def SIMPLE_IDENTIFIER LP parameter_declaration_list? RP function_body?
-on_declaration ::= on type_identifier function_body?
+on_declaration ::= on identifier function_body?
 function_body ::= LB statement_list RB
 parameter_declaration_list ::= parameter_declaration (COMMA parameter_declaration)*
 parameter_declaration ::= SIMPLE_IDENTIFIER variable_type
 
-uses_declaration ::= uses type_identifier (COMMA type_identifier)*
+uses_declaration ::= uses identifier (COMMA identifier)*
 val_declaration ::= val SIMPLE_IDENTIFIER variable_type? variable_initializer?
 var_declaration ::= var SIMPLE_IDENTIFIER variable_type? variable_initializer?
-variable_type ::= COLON type_identifier
+variable_type ::= COLON identifier
 variable_initializer ::= OP_EQ expr
 
 statement_list ::= statement*
@@ -122,14 +127,17 @@ statement ::=
     val_declaration_statement |
     var_declaration_statement |
     return_statement |
-    function_call_statement
+    function_call_statement |
+    if_statement
 val_declaration_statement ::= val_declaration
 var_declaration_statement ::= var_declaration
 function_call_statement ::= function_call_expr
 return_statement ::= return expr
+if_statement ::= if_expr
 
 expr ::=
     assign_expr |
+    boolean_group |
     add_group |
     mul_group |
     unary_group |
@@ -138,6 +146,7 @@ expr ::=
 private unary_group ::= unary_plus_expr | unary_min_expr
 private mul_group ::= mul_expr | div_expr
 private add_group ::= plus_expr | minus_expr
+private boolean_group ::= boolean_expr
 private primary_group ::= function_call_expr | lambda_expr | field_access_expr | ref_expr | literal_expr | paren_expr
 
 assign_expr ::= expr assign_op expr { rightAssociative=true }
@@ -150,6 +159,11 @@ minus_expr ::= expr OP_MINUS expr
 plus_expr ::= expr OP_PLUS expr
 paren_expr ::= '(' expr ')'
 field_access_expr ::= expr DOT expr
+
+boolean_expr ::= expr boolean_op expr
+boolean_op ::= '==' | '!=' | '&&' | '||'
+if_expr ::= if LP boolean_expr RP if_content (else if_content)?
+if_content ::= statement | LB statement_list RB
 
 lambda_expr ::= LBR (parameter_declaration_list '|')? statement_list RBR
 

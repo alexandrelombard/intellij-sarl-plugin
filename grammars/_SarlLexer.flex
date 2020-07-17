@@ -29,7 +29,6 @@ STRING=\"[^\"]*\"
 NUMBER=[0-9]+
 IMPORT_PACKAGE=[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*\.\*
 SIMPLE_IDENTIFIER=[a-zA-Z_][a-zA-Z0-9_]*
-DOT_IDENTIFIER=[a-zA-Z_][a-zA-Z0-9_]*
 LINE_COMMENT="//".*
 BLOCK_COMMENT="/"\*.*?\*"/"
 WHITE_SPACE=[ \t\n\x0B\f\r]+
@@ -74,6 +73,10 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   "return"                 { return RETURN; }
   "occurrence"             { return OCCURRENCE; }
   "this"                   { return THIS; }
+  "if"                     { return IF; }
+  "else"                   { return ELSE; }
+  "break"                  { return BREAK; }
+  "continue"               { return CONTINUE; }
   "new"                    { return NEW; }
   "def"                    { return DEF; }
   "uses"                   { return USES; }
@@ -83,7 +86,6 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   {NUMBER}                 { return NUMBER; }
   {IMPORT_PACKAGE}         { return IMPORT_PACKAGE; }
   {SIMPLE_IDENTIFIER}      { return SIMPLE_IDENTIFIER; }
-  {DOT_IDENTIFIER}         { return DOT_IDENTIFIER; }
   {LINE_COMMENT}           { return LINE_COMMENT; }
   {BLOCK_COMMENT}          { return BLOCK_COMMENT; }
   {WHITE_SPACE}            { return WHITE_SPACE; }
