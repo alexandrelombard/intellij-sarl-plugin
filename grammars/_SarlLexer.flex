@@ -85,6 +85,9 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   "continue"               { return CONTINUE; }
   "true"                   { return TRUE; }
   "false"                  { return FALSE; }
+  "while"                  { return WHILE; }
+  "do"                     { return DO; }
+  "for"                    { return FOR; }
   "new"                    { return NEW; }
   "def"                    { return DEF; }
   "uses"                   { return USES; }

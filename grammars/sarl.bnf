@@ -69,6 +69,10 @@
     continue = 'continue'
     true = 'true'
     false = 'false'
+    while = 'while'
+    do = 'do'
+    for = 'for'
+    new = 'new'
 
     STRING = 'regexp:"[^"]*"'
     NUMBER = 'regexp:[0-9]+'
@@ -137,12 +141,22 @@ private statement ::=
     var_declaration_statement |
     return_statement |
     function_call_statement |
-    if_statement
+    if_statement |
+    while_statement |
+    do_while_statement |
+    for_statement |
+    break_statement |
+    continue_statement
 val_declaration_statement ::= val_declaration
 var_declaration_statement ::= var_declaration
 function_call_statement ::= function_call_expr
 return_statement ::= return expr
 if_statement ::= if_expr
+break_statement ::= break
+continue_statement ::= continue
+while_statement ::= while LP expr RP (statement | LB statement_list RB)
+do_while_statement ::= do LB statement_list RB while LP expr RP
+for_statement ::= for LP identifier COLON expr RP (statement | LB statement_list RB)
 
 expr ::=
     assign_expr |
@@ -181,7 +195,7 @@ else_content ::= statement | LB statement_list RB
 
 lambda_expr ::= LBR (parameter_declaration_list '|')? statement_list RBR
 
-function_call_expr ::= SIMPLE_IDENTIFIER LP parameter_list? RP
+function_call_expr ::= SIMPLE_IDENTIFIER LP parameter_list? RP lambda_expr?
 ref_expr ::= occurrence | this | SIMPLE_IDENTIFIER
 literal_expr ::= NUMBER | STRING | false | true
 
