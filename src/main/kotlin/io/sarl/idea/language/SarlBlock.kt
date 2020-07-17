@@ -6,6 +6,7 @@ import com.intellij.psi.TokenType
 import com.intellij.psi.formatter.common.AbstractBlock
 import io.sarl.idea.language.psi.SarlAgentDeclaration
 import io.sarl.idea.language.psi.SarlStatementList
+import io.sarl.idea.language.psi.SarlTypes
 
 class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val spacingBuilder: SpacingBuilder) :
         AbstractBlock(node, wrap, alignment) {
@@ -28,7 +29,7 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
     }
 
     override fun isLeaf(): Boolean {
-        return myNode.firstChildNode == null
+        return myNode.firstChildNode === null
     }
 
     override fun getSpacing(child1: Block?, child2: Block): Spacing? {
@@ -36,11 +37,11 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
     }
 
     override fun getIndent(): Indent {
-        when(node.treeParent?.psi) {
-            is SarlAgentDeclaration,
-            is SarlStatementList ->
-                return Indent.getContinuationIndent()
-            else -> return Indent.getNoneIndent()
+        return when(myNode.treeParent?.elementType) {
+            SarlTypes.AGENT_DECLARATION,
+            SarlTypes.STATEMENT_LIST ->
+                Indent.getContinuationIndent()
+            else -> Indent.getNoneIndent()
         }
     }
 
