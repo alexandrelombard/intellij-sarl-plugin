@@ -75,6 +75,7 @@
     do = 'do'
     for = 'for'
     new = 'new'
+    static = 'static'
 
     STRING = 'regexp:"[^"]*"'
     NUMBER = 'regexp:[0-9]+'
@@ -117,7 +118,7 @@ implements_section ::= implements identifier (COMMA identifier)*
 identifier ::= SIMPLE_IDENTIFIER DOT identifier | SIMPLE_IDENTIFIER
 //type_identifier ::= (DOT_IDENTIFIER | SIMPLE_IDENTIFIER)
 
-class_body ::= (member_declaration | constructor_declaration | function_declaration)+
+class_body ::= (static_constructor_declaration | member_declaration | constructor_declaration | function_declaration)+
 event_body ::= (member_declaration | constructor_declaration | function_declaration)+
 skill_body ::= (member_declaration | constructor_declaration | function_declaration)+
 interface_body ::= (member_declaration | function_declaration)+
@@ -125,9 +126,10 @@ capacity_body ::= (member_declaration | function_declaration)+
 agent_body ::= (uses_declaration | member_declaration | constructor_declaration | on_declaration | function_declaration)+
 behavior_body ::= (uses_declaration | member_declaration | constructor_declaration | on_declaration | function_declaration)+
 
+static_constructor_declaration ::= static new LB statement_list? RB
 constructor_declaration ::= visibility_modifier? abstract? new LP parameter_declaration_list? RP function_body?
-member_declaration ::= visibility_modifier? (val_declaration | var_declaration)
-function_declaration ::= visibility_modifier? abstract? def SIMPLE_IDENTIFIER LP parameter_declaration_list? RP function_body?
+member_declaration ::= static? visibility_modifier? (val_declaration | var_declaration)
+function_declaration ::= static? visibility_modifier? abstract? def SIMPLE_IDENTIFIER LP parameter_declaration_list? RP function_body?
 on_declaration ::= on identifier lambda_expr? function_body
 function_body ::= LB statement_list RB
 parameter_declaration_list ::= parameter_declaration (COMMA parameter_declaration)*

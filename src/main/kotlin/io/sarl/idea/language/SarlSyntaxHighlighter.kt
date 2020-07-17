@@ -58,7 +58,10 @@ class SarlSyntaxHighlighter : SyntaxHighlighterBase() {
                 SarlTypes.WHILE,
                 SarlTypes.DO,
                 SarlTypes.FOR,
-                SarlTypes.NEW -> KEYWORD_KEYS
+                SarlTypes.NEW,
+                SarlTypes.EXTENDS,
+                SarlTypes.IMPLEMENTS,
+                SarlTypes.STATIC -> KEYWORD_KEYS
             else -> EMPTY_KEYS
         }
     }

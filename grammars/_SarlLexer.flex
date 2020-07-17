@@ -74,6 +74,8 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   "public"                 { return PUBLIC; }
   "protected"              { return PROTECTED; }
   "abstract"               { return ABSTRACT; }
+  "extends"                { return EXTENDS; }
+  "implements"             { return IMPLEMENTS; }
   "on"                     { return ON; }
   "val"                    { return VAL; }
   "return"                 { return RETURN; }
@@ -89,6 +91,7 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   "do"                     { return DO; }
   "for"                    { return FOR; }
   "new"                    { return NEW; }
+  "static"                 { return STATIC; }
   "def"                    { return DEF; }
   "uses"                   { return USES; }
   "var"                    { return VAR; }
