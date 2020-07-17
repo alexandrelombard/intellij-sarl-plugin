@@ -58,6 +58,8 @@
     public = 'public'
     protected = 'protected'
     abstract = 'abstract'
+    extends = 'extends'
+    implements = 'implements'
     on = 'on'
     val = 'val'
     return = 'return'
@@ -101,14 +103,16 @@ private type_declaration ::= class_declaration |
         skill_declaration |
         capacity_declaration
 
-class_declaration ::= visibility_modifier? abstract? class identifier LB class_body? RB
-interface_declaration ::= visibility_modifier? interface LB interface_body RB
+class_declaration ::= visibility_modifier? abstract? class identifier extends_section? implements_section? LB class_body? RB
+interface_declaration ::= visibility_modifier? interface identifier extends_section? LB interface_body RB
 agent_declaration ::= agent identifier LB agent_body? RB
 event_declaration ::= event identifier LB event_body? RB
 skill_declaration ::= skill identifier LB skill_body? RB
 behavior_declaration ::= abstract? behavior identifier LB behavior_body? RB
 capacity_declaration ::= capacity identifier LB capacity_body? RB
 visibility_modifier ::= public | private | protected
+extends_section ::= extends identifier (COMMA identifier)*
+implements_section ::= implements identifier (COMMA identifier)*
 
 identifier ::= SIMPLE_IDENTIFIER DOT identifier | SIMPLE_IDENTIFIER
 //type_identifier ::= (DOT_IDENTIFIER | SIMPLE_IDENTIFIER)
