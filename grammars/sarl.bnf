@@ -62,7 +62,8 @@
 
     IMPORT_PACKAGE = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*\.\*'
     SIMPLE_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
-    DOT_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*'
+//    DOT_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*'
+    DOT_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
     LINE_COMMENT = 'regexp://.*'
     BLOCK_COMMENT = 'regexp:/\*.*?\*/'
     WHITE_SPACE = 'regexp:\s+'
