@@ -30,6 +30,7 @@
         <lang.formatter
                 language="SARL"
                 implementationClass="io.sarl.idea.language.SarlFormattingModelBuilder" />
+        <lang.commenter language="SARL" implementationClass="io.sarl.idea.language.SarlCommenter" />
     </extensions>
 
     <actions>
