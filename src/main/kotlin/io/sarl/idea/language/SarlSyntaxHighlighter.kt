@@ -52,7 +52,9 @@ class SarlSyntaxHighlighter : SyntaxHighlighterBase() {
                 SarlTypes.IF,
                 SarlTypes.ELSE,
                 SarlTypes.CONTINUE,
-                SarlTypes.BREAK -> KEYWORD_KEYS
+                SarlTypes.BREAK,
+                SarlTypes.TRUE,
+                SarlTypes.FALSE -> KEYWORD_KEYS
             else -> EMPTY_KEYS
         }
     }

@@ -24,8 +24,6 @@
     RBR = ']'
     LP = '('
     RP = ')'
-    LT = '<'
-    GT = '>'
     COMMA = ','
     COLON = ':'
     SEMICOLON = ';'
@@ -33,6 +31,10 @@
 
     OP_EQUAL = '=='
     OP_NOT_EQUAL = '!='
+    OP_GT = '>'
+    OP_LT = '<'
+    OP_GEQ = '>='
+    OP_LEQ = '<='
     OP_AND = '&&'
     OP_OR = '||'
 
@@ -65,6 +67,8 @@
     else = 'else'
     break = 'break'
     continue = 'continue'
+    true = 'true'
+    false = 'false'
 
     STRING = 'regexp:"[^"]*"'
     NUMBER = 'regexp:[0-9]+'
@@ -143,6 +147,7 @@ if_statement ::= if_expr
 expr ::=
     assign_expr |
     boolean_group |
+    compare_group |
     add_group |
     mul_group |
     unary_group |
@@ -151,11 +156,16 @@ expr ::=
 private unary_group ::= unary_plus_expr | unary_min_expr
 private mul_group ::= mul_expr | div_expr
 private add_group ::= plus_expr | minus_expr
+private compare_group ::= compare_expr
 private boolean_group ::= boolean_expr
 private primary_group ::= function_call_expr | lambda_expr | field_access_expr | ref_expr | literal_expr | paren_expr
 
 assign_expr ::= expr assign_op expr { rightAssociative=true }
 assign_op ::= '=' | '*=' | '/=' | '%=' | '+=' | '-='
+compare_expr ::= expr compare_op expr
+boolean_expr ::= expr boolean_op expr
+boolean_op ::= OP_AND | OP_OR
+compare_op ::= OP_EQUAL | OP_NOT_EQUAL | OP_GT | OP_LT | OP_GEQ | OP_LEQ
 unary_min_expr ::= OP_MINUS expr
 unary_plus_expr ::= OP_PLUS expr
 div_expr ::= expr OP_DIV expr
@@ -165,16 +175,15 @@ plus_expr ::= expr OP_PLUS expr
 paren_expr ::= '(' expr ')'
 field_access_expr ::= expr DOT expr
 
-boolean_expr ::= expr boolean_op expr
-boolean_op ::= OP_EQUAL | OP_NOT_EQUAL | OP_AND | OP_OR
-if_expr ::= if LP boolean_expr RP if_content (else if_content)?
+if_expr ::= if LP expr RP if_content (else else_content)?
 if_content ::= statement | LB statement_list RB
+else_content ::= statement | LB statement_list RB
 
 lambda_expr ::= LBR (parameter_declaration_list '|')? statement_list RBR
 
 function_call_expr ::= SIMPLE_IDENTIFIER LP parameter_list? RP
 ref_expr ::= occurrence | this | SIMPLE_IDENTIFIER
-literal_expr ::= NUMBER | STRING
+literal_expr ::= NUMBER | STRING | false | true
 
 parameter_list ::= parameter (COMMA parameter)*
 parameter ::= expr

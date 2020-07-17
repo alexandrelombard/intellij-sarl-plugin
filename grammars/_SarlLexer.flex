@@ -43,14 +43,16 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   "]"                      { return RBR; }
   "("                      { return LP; }
   ")"                      { return RP; }
-  "<"                      { return LT; }
-  ">"                      { return GT; }
   ","                      { return COMMA; }
   ":"                      { return COLON; }
   ";"                      { return SEMICOLON; }
   "."                      { return DOT; }
   "=="                     { return OP_EQUAL; }
   "!="                     { return OP_NOT_EQUAL; }
+  ">"                      { return OP_GT; }
+  "<"                      { return OP_LT; }
+  ">="                     { return OP_GEQ; }
+  "<="                     { return OP_LEQ; }
   "&&"                     { return OP_AND; }
   "||"                     { return OP_OR; }
   "="                      { return OP_EQ; }
@@ -81,6 +83,8 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
   "else"                   { return ELSE; }
   "break"                  { return BREAK; }
   "continue"               { return CONTINUE; }
+  "true"                   { return TRUE; }
+  "false"                  { return FALSE; }
   "new"                    { return NEW; }
   "def"                    { return DEF; }
   "uses"                   { return USES; }
