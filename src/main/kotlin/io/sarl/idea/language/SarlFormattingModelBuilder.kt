@@ -30,7 +30,20 @@ class SarlFormattingModelBuilder : FormattingModelBuilder {
     companion object {
         private fun createSpaceBuilder(settings: CodeStyleSettings): SpacingBuilder {
             return SpacingBuilder(settings, SarlLanguage)
-                    .around(TokenSet.create(SarlTypes.OP_EQ, SarlTypes.OP_EQUAL))
+                    .around(TokenSet.create(
+                            SarlTypes.OP_EQ,
+                            SarlTypes.OP_EQUAL,
+                            SarlTypes.OP_AND,
+                            SarlTypes.OP_DIV,
+                            SarlTypes.OP_GEQ,
+                            SarlTypes.OP_LEQ,
+                            SarlTypes.OP_GT,
+                            SarlTypes.OP_LT,
+                            SarlTypes.OP_MINUS,
+                            SarlTypes.OP_MOD,
+                            SarlTypes.OP_OR,
+                            SarlTypes.OP_NOT_EQUAL,
+                            SarlTypes.OP_TIMES))
                     .none()
         }
     }

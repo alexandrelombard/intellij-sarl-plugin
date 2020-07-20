@@ -4,8 +4,6 @@ import com.intellij.formatting.*
 import com.intellij.lang.ASTNode
 import com.intellij.psi.TokenType
 import com.intellij.psi.formatter.common.AbstractBlock
-import io.sarl.idea.language.psi.SarlAgentDeclaration
-import io.sarl.idea.language.psi.SarlStatementList
 import io.sarl.idea.language.psi.SarlTypes
 
 class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val spacingBuilder: SpacingBuilder) :
@@ -37,12 +35,30 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
     }
 
     override fun getIndent(): Indent {
-        return when(myNode.treeParent?.elementType) {
-            SarlTypes.AGENT_DECLARATION,
-            SarlTypes.STATEMENT_LIST ->
-                Indent.getContinuationIndent()
+        return when(myNode.elementType) {
+            SarlTypes.AGENT_BODY,
+                SarlTypes.CLASS_BODY,
+                SarlTypes.INTERFACE_BODY,
+                SarlTypes.EVENT_BODY,
+                SarlTypes.SKILL_BODY,
+                SarlTypes.CAPACITY_BODY,
+                SarlTypes.BEHAVIOR_BODY,
+                SarlTypes.IF_CONTENT,
+                SarlTypes.ELSE_CONTENT,
+                SarlTypes.STATEMENT_LIST -> Indent.getNormalIndent()
             else -> Indent.getNoneIndent()
         }
+
+//        return when(myNode.treeParent?.elementType) {
+//            null -> Indent.getAbsoluteNoneIndent()
+//            SarlTypes.USES_DECLARATION,
+//            SarlTypes.MEMBER_DECLARATION,
+//            SarlTypes.METHOD_DECLARATION,
+//            SarlTypes.ON_DECLARATION -> Indent.getNormalIndent()
+//            else -> Indent.getNoneIndent()
+//        }
+
+
     }
 
 }
