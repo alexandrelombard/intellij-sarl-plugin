@@ -18,7 +18,7 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
                 val block = SarlBlock(
                         child,
                         Wrap.createWrap(WrapType.NONE, false),
-                        Alignment.createAlignment(),
+                        null,   // Alignment.createAlignment()
                         spacingBuilder)
                 blocks.add(block)
             }
@@ -48,34 +48,18 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
         }
 
         if(myNode.psi is SarlStatement) {
+            // Statements are indented relatively to their statement list
             return Indent.getNormalIndent()
         }
 
-//        // More complex cases
-//        if(myNode.elementType == SarlTypes.STATEMENT_LIST && myNode.firstChildNode != null) {
-//            // If it is a non-empty statement list
-//            return Indent.getNormalIndent()
-//        }
-//
-//        if((myNode.elementType == SarlTypes.LINE_COMMENT ||
-//                myNode.elementType == SarlTypes.BLOCK_COMMENT) &&
-//                myNode.treeParent.findChildByType(SarlTypes.STATEMENT_LIST) != null) {
-//            // Comments next to a statement list should be indented like the statement list
-//            return Indent.getNormalIndent()
-//        }
+        if((myNode.elementType == SarlTypes.LINE_COMMENT ||
+                myNode.elementType == SarlTypes.BLOCK_COMMENT) &&
+                myNode.treeParent.findChildByType(SarlTypes.STATEMENT_LIST) != null) {
+            // Comments next to a statement list should be indented like the statement list
+            return Indent.getNormalIndent()
+        }
 
         return Indent.getNoneIndent()
-
-//        return when(myNode.treeParent?.elementType) {
-//            null -> Indent.getAbsoluteNoneIndent()
-//            SarlTypes.USES_DECLARATION,
-//            SarlTypes.MEMBER_DECLARATION,
-//            SarlTypes.METHOD_DECLARATION,
-//            SarlTypes.ON_DECLARATION -> Indent.getNormalIndent()
-//            else -> Indent.getNoneIndent()
-//        }
-
-
     }
 
 }
