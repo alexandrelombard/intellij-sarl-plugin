@@ -16,6 +16,7 @@
   psiImplUtilClass='io.sarl.idea.language.psi.impl.SarlPsiImplUtil'
 
   extends(".*expr")=expr
+  extends(".*statement")=statement
 
   tokens = [
     LB = '{'
@@ -141,7 +142,7 @@ variable_type ::= COLON identifier
 variable_initializer ::= OP_EQ expr
 
 statement_list ::= statement*
-private statement ::=
+statement ::=
     val_declaration_statement |
     var_declaration_statement |
     return_statement |
