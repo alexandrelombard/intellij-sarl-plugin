@@ -32,6 +32,7 @@
                 implementationClass="io.sarl.idea.language.SarlFormattingModelBuilder" />
         <lang.commenter language="SARL" implementationClass="io.sarl.idea.language.SarlCommenter" />
         <lang.foldingBuilder language="SARL" implementationClass="io.sarl.idea.language.SarlFoldingBuilder" />
+        <completion.contributor language="SARL" implementationClass="io.sarl.idea.language.SarlCompletionContributor" />
     </extensions>
 
     <actions>
