@@ -18,7 +18,7 @@
   extends(".*expr")=expr
   extends(".*statement")=statement
 
-  implements("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration")='io.sarl.idea.language.psi.SarlIdentifiable'
+  implements("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration|behavior_declaration|method_declaration|val_declaration|var_declaration")='io.sarl.idea.language.psi.SarlIdentifiable'
 
   tokens = [
     LB = '{'
@@ -132,14 +132,14 @@ behavior_body ::= (uses_declaration | member_declaration | constructor_declarati
 static_constructor_declaration ::= static new LB statement_list RB
 constructor_declaration ::= visibility_modifier? abstract? new LP parameter_declaration_list? RP LB statement_list RB
 member_declaration ::= static? visibility_modifier? (val_declaration | var_declaration)
-method_declaration ::= static? visibility_modifier? abstract? def SIMPLE_IDENTIFIER LP parameter_declaration_list? RP LB statement_list? RB
+method_declaration ::= static? visibility_modifier? abstract? def identifier LP parameter_declaration_list? RP LB statement_list? RB
 on_declaration ::= on identifier lambda_expr? LB statement_list RB
 parameter_declaration_list ::= parameter_declaration (COMMA parameter_declaration)*
 parameter_declaration ::= SIMPLE_IDENTIFIER variable_type
 
 uses_declaration ::= uses identifier (COMMA identifier)*
-val_declaration ::= val SIMPLE_IDENTIFIER variable_type? variable_initializer?
-var_declaration ::= var SIMPLE_IDENTIFIER variable_type? variable_initializer?
+val_declaration ::= val identifier variable_type? variable_initializer?
+var_declaration ::= var identifier variable_type? variable_initializer?
 variable_type ::= COLON identifier
 variable_initializer ::= OP_EQ expr
 
