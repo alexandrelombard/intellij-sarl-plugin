@@ -18,6 +18,8 @@
   extends(".*expr")=expr
   extends(".*statement")=statement
 
+  implements("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration")='io.sarl.idea.language.psi.SarlIdentifiable'
+
   tokens = [
     LB = '{'
     RB = '}'
