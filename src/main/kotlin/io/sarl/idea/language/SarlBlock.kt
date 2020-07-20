@@ -35,7 +35,8 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
     }
 
     override fun getIndent(): Indent {
-        return when(myNode.elementType) {
+        // Basic cases
+        when(myNode.elementType) {
             SarlTypes.AGENT_BODY,
                 SarlTypes.CLASS_BODY,
                 SarlTypes.INTERFACE_BODY,
@@ -44,10 +45,23 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
                 SarlTypes.CAPACITY_BODY,
                 SarlTypes.BEHAVIOR_BODY,
                 SarlTypes.IF_CONTENT,
-                SarlTypes.ELSE_CONTENT,
-                SarlTypes.STATEMENT_LIST -> Indent.getNormalIndent()
-            else -> Indent.getNoneIndent()
+                SarlTypes.ELSE_CONTENT -> return Indent.getNormalIndent()
         }
+
+        // More complex cases
+        if(myNode.elementType == SarlTypes.STATEMENT_LIST && myNode.firstChildNode != null) {
+            // If it is a non-empty statement list
+            return Indent.getNormalIndent()
+        }
+
+        if((myNode.elementType == SarlTypes.LINE_COMMENT ||
+                myNode.elementType == SarlTypes.BLOCK_COMMENT) &&
+                myNode.treeParent.findChildByType(SarlTypes.STATEMENT_LIST) != null) {
+            // Comments next to a statement list should be indented like the statement list
+            return Indent.getNormalIndent()
+        }
+
+        return Indent.getNoneIndent()
 
 //        return when(myNode.treeParent?.elementType) {
 //            null -> Indent.getAbsoluteNoneIndent()

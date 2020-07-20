@@ -44,6 +44,15 @@ class SarlFormattingModelBuilder : FormattingModelBuilder {
                             SarlTypes.OP_OR,
                             SarlTypes.OP_NOT_EQUAL,
                             SarlTypes.OP_TIMES))
+                    .spaces(1)
+                    .after(TokenSet.create(
+                            SarlTypes.COLON,
+                            SarlTypes.SEMICOLON,
+                            SarlTypes.COMMA))
+                    .spaces(1)
+                    .after(TokenSet.create(SarlTypes.LB))
+                    .lineBreakInCode()
+                    .before(TokenSet.create(SarlTypes.RB))
                     .none()
         }
     }
