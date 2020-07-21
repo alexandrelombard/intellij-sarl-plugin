@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "https://plugins.jetbrains.com/plugin.dtd">
+<idea-plugin>
+<!--    <extensions defaultExtensionNs="org.jetbrains.idea.maven">-->
+<!--        <importer implementation="org.jetbrains.plugins.scala.project.maven.ScalaMavenImporter"/>-->
+<!--    </extensions>-->
+<!--    <extensions defaultExtensionNs="org.intellij.scala">-->
+<!--        <testWorkingDirectoryProvider implementation="org.jetbrains.plugins.scala.project.maven.MavenTestWorkingDirectoryProvider"/>-->
+<!--    </extensions>-->
+<!--    <extensions defaultExtensionNs="org.jetbrains.idea.maven">-->
+<!--        <repositoryProvider implementation="org.jetbrains.sbt.resolvers.SbtMavenRepositoryProvider"/>-->
+<!--    </extensions>-->
+</idea-plugin>

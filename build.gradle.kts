@@ -25,7 +25,7 @@ sourceSets["main"].java.srcDirs(file("src/main/java"), file("src/main/gen"))
 intellij {
     version = "2020.1.2"
 
-    setPlugins("java")
+    setPlugins("java", "org.jetbrains.idea.maven")
 }
 
 grammarKit {
