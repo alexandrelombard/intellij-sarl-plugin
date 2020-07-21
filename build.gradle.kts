@@ -36,7 +36,77 @@ grammarKit {
     grammarKitRelease = "2020.1"
 }
 
-tasks.create("generateSarlLexer", org.jetbrains.grammarkit.tasks.GenerateLexer::class.java) {
+//tasks.create("generateSarlLexer", org.jetbrains.grammarkit.tasks.GenerateLexer::class.java) {
+//    // source flex file
+//    source = "grammars/_SarlLexer.flex"
+//
+//    // target directory for lexer
+//    targetDir = "src/main/gen/io/sarl/idea/language/parser/"
+//
+//    // target classname, target file will be targetDir/targetClass.java
+//    targetClass = "_SarlLexer"
+//
+//    // if set, plugin will remove a lexer output file before generating new one. Default: false
+//    purgeOldFiles = true
+//}
+
+//tasks.create("generateSarlParser", org.jetbrains.grammarkit.tasks.GenerateParser::class.java) {
+//    // source bnf file
+//    source = "grammars/sarl.bnf"
+//
+//    // optional, task-specific root for the generated files. Default: none
+//    targetRoot = "src/main/gen"
+//
+//    // path to a parser file, relative to the targetRoot
+//    pathToParser = "/io/sarl/idea/language/parser/SarlParserGenerated.java"
+//
+//    // path to a directory with generated psi files, relative to the targetRoot
+//    pathToPsiRoot = "/io/sarl/idea/language/psi"
+//
+//    // if set, plugin will remove a parser output file and psi output directory before generating new ones. Default: false
+//    purgeOldFiles = true
+//}
+
+//fun generateLexerTask(suffix: String = "", config: org.jetbrains.grammarkit.tasks.GenerateLexer.() -> Unit = {}) =
+//        task<org.jetbrains.grammarkit.tasks.GenerateLexer>("generateLexer${suffix.capitalize()}") {
+//            // source flex file
+//            source = "grammars/_SarlLexer.flex"
+//
+//            // target directory for lexer
+//            targetDir = "src/main/gen/io/sarl/idea/language/parser/"
+//
+//            // target classname, target file will be targetDir/targetClass.java
+//            targetClass = "_SarlLexer"
+//
+//            // if set, plugin will remove a lexer output file before generating new one. Default: false
+//            purgeOldFiles = true
+//
+//            config()
+//        }
+
+fun generateParserTask(suffix: String = "", config: org.jetbrains.grammarkit.tasks.GenerateParser.() -> Unit = {}) =
+        task<org.jetbrains.grammarkit.tasks.GenerateParser>("generateParser${suffix.capitalize()}") {
+            // source bnf file
+            source = "grammars/sarl.bnf"
+
+            // optional, task-specific root for the generated files. Default: none
+            targetRoot = "src/main/gen"
+
+            // path to a parser file, relative to the targetRoot
+            pathToParser = "/io/sarl/idea/language/parser/SarlParserGenerated.java"
+
+            // path to a directory with generated psi files, relative to the targetRoot
+            pathToPsiRoot = "/io/sarl/idea/language/psi"
+
+            // if set, plugin will remove a parser output file and psi output directory before generating new ones. Default: false
+            purgeOldFiles = true
+
+            config()
+        }
+
+val generateParserInitial = generateParserTask("initial")
+
+val generateLexer = task<org.jetbrains.grammarkit.tasks.GenerateLexer>("generateLexer") {
     // source flex file
     source = "grammars/_SarlLexer.flex"
 
@@ -50,21 +120,17 @@ tasks.create("generateSarlLexer", org.jetbrains.grammarkit.tasks.GenerateLexer::
     purgeOldFiles = true
 }
 
-tasks.create("generateSarlParser", org.jetbrains.grammarkit.tasks.GenerateParser::class.java) {
-    // source bnf file
-    source = "grammars/sarl.bnf"
+val compileKotlin = tasks.named("compileKotlin") {
+    dependsOn(generateLexer, generateParserInitial)
+}
 
-    // optional, task-specific root for the generated files. Default: none
-    targetRoot = "src/main/gen"
+val generateParser = generateParserTask {
+    dependsOn(compileKotlin)
+    classpath(compileKotlin.get().outputs)
+}
 
-    // path to a parser file, relative to the targetRoot
-    pathToParser = "/io/sarl/idea/language/parser/SarlParserGenerated.java"
-
-    // path to a directory with generated psi files, relative to the targetRoot
-    pathToPsiRoot = "/io/sarl/idea/language/psi"
-
-    // if set, plugin will remove a parser output file and psi output directory before generating new ones. Default: false
-    purgeOldFiles = true
+tasks.named("compileJava") {
+    dependsOn(generateParser)
 }
 
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
