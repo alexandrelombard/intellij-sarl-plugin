@@ -56,6 +56,7 @@
     OP_DIV = '/'
     OP_MOD = '%'
 
+    final = 'final'
     package = 'package'
     import = 'import'
     class = 'class'
@@ -115,7 +116,7 @@ private type_declaration ::= class_declaration |
         skill_declaration |
         capacity_declaration
 
-class_declaration ::= visibility_modifier? abstract? class identifier generics_parameter_list? extends_section? implements_section? LB class_body? RB
+class_declaration ::= visibility_modifier? final? abstract? class identifier generics_parameter_list? extends_section? implements_section? LB class_body? RB
 interface_declaration ::= visibility_modifier? interface identifier generics_parameter_list? extends_section? LB interface_body RB
 agent_declaration ::= agent identifier LB agent_body? RB
 event_declaration ::= event identifier LB event_body? RB
