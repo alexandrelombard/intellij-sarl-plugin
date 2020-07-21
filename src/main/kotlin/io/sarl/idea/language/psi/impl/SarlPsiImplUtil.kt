@@ -1,9 +1,28 @@
 package io.sarl.idea.language.psi.impl
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReference
+import io.sarl.idea.language.SarlUtil
 import io.sarl.idea.language.psi.*
 
 object SarlPsiImplUtil {
+    // region References
+    @JvmStatic
+    fun getReference(element: SarlRefExpr): PsiReference? {
+        val refIdentifier = element.simpleIdentifier ?: return null
+
+        val name = refIdentifier.text
+        val namedElements = SarlUtil.findNamedElements(element.project, name)
+
+        if(namedElements.size == 1) {
+            return namedElements[0].reference
+        }
+
+        return null
+    }
+    // endregion
+
+    // region Named elements
     @JvmStatic fun getName(element: SarlAgentDeclaration) = _getName(element)
     @JvmStatic fun setName(element: SarlAgentDeclaration, name: String) = _setName(element, name)
     @JvmStatic fun getNameIdentifier(element: SarlAgentDeclaration) = _getNameIdentifier(element)
@@ -43,6 +62,7 @@ object SarlPsiImplUtil {
     @JvmStatic fun getName(element: SarlValDeclaration) = _getName(element)
     @JvmStatic fun setName(element: SarlValDeclaration, name: String) = _setName(element, name)
     @JvmStatic fun getNameIdentifier(element: SarlValDeclaration) = _getNameIdentifier(element)
+    // endregion
 
     @JvmStatic
     private fun _getName(element: SarlNamedElement): String {

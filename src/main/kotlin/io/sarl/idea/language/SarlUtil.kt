@@ -17,7 +17,7 @@ object SarlUtil {
         for (virtualFile in virtualFiles) {
             val sarlFile = PsiManager.getInstance(project).findFile(virtualFile)
             if(sarlFile != null) {
-                val sarlNamedElements = PsiTreeUtil.getChildrenOfType(sarlFile, SarlNamedElement::class.java)
+                val sarlNamedElements = PsiTreeUtil.findChildrenOfType(sarlFile, SarlNamedElement::class.java)
                 if(sarlNamedElements != null) {
                     for(sarlNamedElement in sarlNamedElements) {
                         if(sarlNamedElement != null && sarlNamedElement.name == name) {

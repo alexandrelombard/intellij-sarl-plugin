@@ -34,7 +34,10 @@ class SarlFoldingBuilder : FoldingBuilderEx(), DumbAware {
                         SarlMethodDeclaration::class.java,
                         SarlOnDeclaration::class.java,
                         SarlIfContent::class.java,
-                        SarlElseContent::class.java)
+                        SarlElseContent::class.java,
+                        SarlWhileContent::class.java,
+                        SarlDoWhileContent::class.java,
+                        SarlForContent::class.java)
         // Evaluate the collection
         for (block in blocks) {
             descriptors.add(FoldingDescriptor(
