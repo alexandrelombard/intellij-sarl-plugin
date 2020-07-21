@@ -10,29 +10,31 @@
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <annotator language="SARL" implementationClass="io.sarl.idea.language.SarlAnnotator" />
+        <annotator language="SARL" implementationClass="io.sarl.idea.language.SarlAnnotator"/>
         <codeInsight.lineMarkerProvider
                 language="SARL"
-                implementationClass="io.sarl.idea.language.SarlLineMarkerProvider" />
+                implementationClass="io.sarl.idea.language.SarlLineMarkerProvider"/>
         <fileType name="SARL File" implementationClass="io.sarl.idea.SarlFileType"
-                  fieldName="INSTANCE" language="SARL" extensions="sarl" />
+                  fieldName="INSTANCE" language="SARL" extensions="sarl"/>
         <lang.parserDefinition
                 language="SARL"
-                implementationClass="io.sarl.idea.language.SarlParserDefinition" />
+                implementationClass="io.sarl.idea.language.SarlParserDefinition"/>
         <lang.syntaxHighlighterFactory
                 language="SARL"
-                implementationClass="io.sarl.idea.language.SarlSyntaxHighlighterFactory" />
+                implementationClass="io.sarl.idea.language.SarlSyntaxHighlighterFactory"/>
         <lang.psiStructureViewFactory
                 language="SARL"
-                implementationClass="io.sarl.idea.language.SarlStructureViewFactory" />
+                implementationClass="io.sarl.idea.language.SarlStructureViewFactory"/>
         <lang.formatter
                 language="SARL"
-                implementationClass="io.sarl.idea.language.SarlFormattingModelBuilder" />
-        <lang.commenter language="SARL" implementationClass="io.sarl.idea.language.SarlCommenter" />
-        <lang.foldingBuilder language="SARL" implementationClass="io.sarl.idea.language.SarlFoldingBuilder" />
-        <completion.contributor language="SARL" implementationClass="io.sarl.idea.language.SarlCompletionContributor" />
+                implementationClass="io.sarl.idea.language.SarlFormattingModelBuilder"/>
+        <lang.commenter language="SARL" implementationClass="io.sarl.idea.language.SarlCommenter"/>
+        <lang.foldingBuilder language="SARL" implementationClass="io.sarl.idea.language.SarlFoldingBuilder"/>
+        <completion.contributor language="SARL" implementationClass="io.sarl.idea.language.SarlCompletionContributor"/>
+        <psi.referenceContributor implementation="io.sarl.idea.language.SarlReferenceContributor"/>
     </extensions>
 
     <actions>

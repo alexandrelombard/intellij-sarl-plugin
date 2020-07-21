@@ -24,6 +24,8 @@ sourceSets["main"].java.srcDirs(file("src/main/java"), file("src/main/gen"))
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version = "2020.1.2"
+
+    setPlugins("java")
 }
 
 grammarKit {
