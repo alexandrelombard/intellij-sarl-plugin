@@ -15,7 +15,7 @@
     <depends optional="true" config-file="sarl-maven-integration.xml">org.jetbrains.idea.maven</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <annotator language="SARL" implementationClass="io.sarl.idea.language.SarlAnnotator"/>
+<!--        <annotator language="SARL" implementationClass="io.sarl.idea.language.SarlAnnotator"/>-->
         <codeInsight.lineMarkerProvider
                 language="SARL"
                 implementationClass="io.sarl.idea.language.SarlLineMarkerProvider"/>
