@@ -115,8 +115,8 @@ private type_declaration ::= class_declaration |
         skill_declaration |
         capacity_declaration
 
-class_declaration ::= visibility_modifier? abstract? class identifier extends_section? implements_section? LB class_body? RB
-interface_declaration ::= visibility_modifier? interface identifier extends_section? LB interface_body RB
+class_declaration ::= visibility_modifier? abstract? class identifier generics_parameter_list? extends_section? implements_section? LB class_body? RB
+interface_declaration ::= visibility_modifier? interface identifier generics_parameter_list? extends_section? LB interface_body RB
 agent_declaration ::= agent identifier LB agent_body? RB
 event_declaration ::= event identifier LB event_body? RB
 skill_declaration ::= skill identifier LB skill_body? RB
@@ -136,6 +136,9 @@ interface_body ::= (member_declaration | method_declaration)+
 capacity_body ::= (member_declaration | method_declaration)+
 agent_body ::= (uses_declaration | member_declaration | constructor_declaration | on_declaration | method_declaration)+
 behavior_body ::= (uses_declaration | member_declaration | constructor_declaration | on_declaration | method_declaration)+
+
+generics_parameter_list ::= OP_LT generic_parameter (COMMA generic_parameter)* OP_GT
+generic_parameter ::= ('?' | SIMPLE_IDENTIFIER) (extends identifier)?
 
 static_constructor_declaration ::= static new LB statement_list RB
 constructor_declaration ::= visibility_modifier? abstract? new LP parameter_declaration_list? RP LB statement_list RB
