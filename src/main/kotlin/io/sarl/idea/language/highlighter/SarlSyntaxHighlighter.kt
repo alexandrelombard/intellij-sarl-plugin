@@ -1,4 +1,4 @@
-package io.sarl.idea.language
+package io.sarl.idea.language.highlighter
 
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey

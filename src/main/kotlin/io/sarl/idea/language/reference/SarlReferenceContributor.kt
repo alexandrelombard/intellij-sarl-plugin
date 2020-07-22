@@ -1,6 +1,5 @@
-package io.sarl.idea.language
+package io.sarl.idea.language.reference
 
-import com.intellij.openapi.util.TextRange
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.*
 import com.intellij.util.ProcessingContext

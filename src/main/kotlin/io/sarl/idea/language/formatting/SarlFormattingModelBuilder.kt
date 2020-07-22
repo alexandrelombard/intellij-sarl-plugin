@@ -1,4 +1,4 @@
-package io.sarl.idea.language
+package io.sarl.idea.language.formatting
 
 import com.intellij.formatting.*
 import com.intellij.lang.ASTNode

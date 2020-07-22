@@ -26,17 +26,17 @@
                 implementationClass="io.sarl.idea.language.SarlParserDefinition"/>
         <lang.syntaxHighlighterFactory
                 language="SARL"
-                implementationClass="io.sarl.idea.language.SarlSyntaxHighlighterFactory"/>
+                implementationClass="io.sarl.idea.language.highlighter.SarlSyntaxHighlighterFactory"/>
         <lang.psiStructureViewFactory
                 language="SARL"
-                implementationClass="io.sarl.idea.language.SarlStructureViewFactory"/>
+                implementationClass="io.sarl.idea.language.structure.SarlStructureViewFactory"/>
         <lang.formatter
                 language="SARL"
-                implementationClass="io.sarl.idea.language.SarlFormattingModelBuilder"/>
+                implementationClass="io.sarl.idea.language.formatting.SarlFormattingModelBuilder"/>
         <lang.commenter language="SARL" implementationClass="io.sarl.idea.language.SarlCommenter"/>
         <lang.foldingBuilder language="SARL" implementationClass="io.sarl.idea.language.SarlFoldingBuilder"/>
         <completion.contributor language="SARL" implementationClass="io.sarl.idea.language.SarlCompletionContributor"/>
-        <psi.referenceContributor implementation="io.sarl.idea.language.SarlReferenceContributor"/>
+        <psi.referenceContributor implementation="io.sarl.idea.language.reference.SarlReferenceContributor"/>
     </extensions>
 
     <actions>

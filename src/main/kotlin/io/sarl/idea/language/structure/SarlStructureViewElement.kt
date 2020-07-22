@@ -1,4 +1,4 @@
-package io.sarl.idea.language
+package io.sarl.idea.language.structure
 
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ide.structureView.StructureViewTreeElement
@@ -14,7 +14,6 @@ import io.sarl.idea.language.psi.impl.SarlClassDeclarationImpl
 import io.sarl.idea.language.psi.impl.SarlImportDeclarationsImpl
 import io.sarl.idea.language.psi.impl.SarlInterfaceDeclarationImpl
 import io.sarl.idea.language.psi.impl.SarlPackageDeclarationImpl
-import java.util.*
 
 class SarlStructureViewElement(val element: NavigatablePsiElement) :
         StructureViewTreeElement, SortableTreeElement {

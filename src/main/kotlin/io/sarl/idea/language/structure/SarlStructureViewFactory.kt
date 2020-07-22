@@ -1,4 +1,4 @@
-package io.sarl.idea.language
+package io.sarl.idea.language.structure
 
 //import org.intellij.grammar.livePreview.LivePreviewElementType
 import com.intellij.ide.structureView.*

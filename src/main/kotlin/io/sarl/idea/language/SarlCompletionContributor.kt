@@ -45,6 +45,18 @@ class SarlCompletionContributor : CompletionContributor() {
                 }
         )
 
+        // Field access
+        extend(CompletionType.BASIC, PlatformPatterns.psiElement().inside(false, PlatformPatterns.psiElement(SarlTypes.FIELD_ACCESS_EXPR)),
+                object : CompletionProvider<CompletionParameters>() {
+                    override fun addCompletions(parameters: CompletionParameters,
+                                                context: ProcessingContext,
+                                                resultSet: CompletionResultSet) {
+                        // TODO
+                        println("Field access")
+                    }
+                }
+        )
+
         // FIXME Not working
         extend(CompletionType.SMART, PlatformPatterns.psiElement().withSuperParent(10, PlatformPatterns.psiElement(SarlTypes.CLASS_BODY)),
                 object : CompletionProvider<CompletionParameters>() {

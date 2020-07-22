@@ -1,7 +1,8 @@
-package io.sarl.idea.language
+package io.sarl.idea.language.reference
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
+import io.sarl.idea.language.SarlUtil
 
 class SarlReference(element: PsiElement, textRange: TextRange) :
         PsiReferenceBase<PsiElement>(element, textRange), PsiPolyVariantReference {
