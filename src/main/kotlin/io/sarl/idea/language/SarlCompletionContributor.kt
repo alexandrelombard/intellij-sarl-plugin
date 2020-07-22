@@ -3,6 +3,7 @@ package io.sarl.idea.language
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.patterns.PlatformPatterns
+import com.intellij.psi.util.PsiUtil
 import com.intellij.util.ProcessingContext
 import io.sarl.idea.SarlLanguage
 import io.sarl.idea.language.psi.SarlElementType
