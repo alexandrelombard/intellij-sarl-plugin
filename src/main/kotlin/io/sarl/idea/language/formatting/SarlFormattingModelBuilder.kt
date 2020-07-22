@@ -18,7 +18,7 @@ class SarlFormattingModelBuilder : FormattingModelBuilder {
                         SarlBlock(
                                 element.node,
                                 Wrap.createWrap(WrapType.NONE, false),
-                                Alignment.createAlignment(),
+                                null,
                                 createSpaceBuilder(settings)),
                         settings)
     }

@@ -6,6 +6,8 @@ import com.intellij.psi.TokenType
 import com.intellij.psi.formatter.common.AbstractBlock
 import io.sarl.idea.language.psi.SarlStatement
 import io.sarl.idea.language.psi.SarlTypes
+import org.apache.commons.collections.ArrayStack
+import java.util.*
 
 class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val spacingBuilder: SpacingBuilder) :
         AbstractBlock(node, wrap, alignment) {
@@ -13,17 +15,30 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
     override fun buildChildren(): MutableList<Block> {
         val blocks = arrayListOf<Block>()
         var child = myNode.firstChildNode
+
+        // FIXME This stack alignment thing isn't really working
+        val stackAlignement =
+                myNode.elementType == SarlTypes.CLASS_BODY ||
+                myNode.elementType == SarlTypes.STATEMENT_LIST
+
+        if(stackAlignement)
+            alignmentStack.push(Alignment.createAlignment())
+
         while (child != null) {
             if(child.elementType != TokenType.WHITE_SPACE) {
                 val block = SarlBlock(
                         child,
                         Wrap.createWrap(WrapType.NONE, false),
-                        null,   // Alignment.createAlignment()
+                        alignmentStack.peek(), // Alignment.createAlignment(),
                         spacingBuilder)
                 blocks.add(block)
             }
             child = child.treeNext
         }
+
+        if(stackAlignement)
+            alignmentStack.pop()
+
         return blocks
     }
 
@@ -60,6 +75,10 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
         }
 
         return Indent.getNoneIndent()
+    }
+
+    companion object {
+        val alignmentStack = LinkedList<Alignment>()
     }
 
 }
