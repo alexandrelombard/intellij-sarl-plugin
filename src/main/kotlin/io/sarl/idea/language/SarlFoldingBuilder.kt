@@ -32,6 +32,8 @@ class SarlFoldingBuilder : FoldingBuilderEx(), DumbAware {
                         SarlCapacityDeclaration::class.java,
                         SarlBehaviorDeclaration::class.java,
                         SarlMethodDeclaration::class.java,
+                        SarlStaticConstructorDeclaration::class.java,
+                        SarlConstructorDeclaration::class.java,
                         SarlOnDeclaration::class.java,
                         SarlIfContent::class.java,
                         SarlElseContent::class.java,
