@@ -17,6 +17,9 @@ class SarlAnnotator : Annotator {
         return
     }
 
+    /**
+     * Checks that a use of "occurrence" is always inside an "on" declaration
+     */
     private fun checkOccurrenceInOn(element: PsiElement, holder: AnnotationHolder) {
         if(element.elementType == SarlTypes.OCCURRENCE) {
             val onDeclaration = PsiTreeUtil.getParentOfType(element, SarlOnDeclaration::class.java, false)
