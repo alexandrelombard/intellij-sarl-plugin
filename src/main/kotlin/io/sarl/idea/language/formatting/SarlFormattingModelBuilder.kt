@@ -37,8 +37,6 @@ class SarlFormattingModelBuilder : FormattingModelBuilder {
                             SarlTypes.OP_DIV,
                             SarlTypes.OP_GEQ,
                             SarlTypes.OP_LEQ,
-                            SarlTypes.OP_GT,
-                            SarlTypes.OP_LT,
                             SarlTypes.OP_MINUS,
                             SarlTypes.OP_MOD,
                             SarlTypes.OP_OR,
@@ -49,6 +47,10 @@ class SarlFormattingModelBuilder : FormattingModelBuilder {
                             SarlTypes.COLON,
                             SarlTypes.SEMICOLON,
                             SarlTypes.COMMA))
+                    .spaces(1)
+                    .before(TokenSet.create(SarlTypes.LP))
+                    .spaces(1)
+                    .after(TokenSet.create(SarlTypes.RP))
                     .spaces(1)
                     .after(TokenSet.create(SarlTypes.LB))
                     .lineBreakInCode()
