@@ -18,7 +18,7 @@ class SarlFormattingModelBuilder : FormattingModelBuilder {
                         SarlBlock(
                                 element.node,
                                 Wrap.createWrap(WrapType.NONE, false),
-                                null,
+                                Alignment.createAlignment(),
                                 createSpaceBuilder(settings)),
                         settings)
     }
@@ -47,10 +47,6 @@ class SarlFormattingModelBuilder : FormattingModelBuilder {
                             SarlTypes.COLON,
                             SarlTypes.SEMICOLON,
                             SarlTypes.COMMA))
-                    .spaces(1)
-                    .before(TokenSet.create(SarlTypes.LP))
-                    .spaces(1)
-                    .after(TokenSet.create(SarlTypes.RP))
                     .spaces(1)
                     .after(TokenSet.create(SarlTypes.LB))
                     .lineBreakInCode()

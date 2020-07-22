@@ -3,6 +3,7 @@ package io.sarl.idea.language.formatting
 import com.intellij.formatting.*
 import com.intellij.lang.ASTNode
 import com.intellij.psi.TokenType
+import com.intellij.psi.formatter.FormatterUtil
 import com.intellij.psi.formatter.common.AbstractBlock
 import io.sarl.idea.language.psi.SarlStatement
 import io.sarl.idea.language.psi.SarlTypes
@@ -21,23 +22,17 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
                 myNode.elementType == SarlTypes.CLASS_BODY ||
                 myNode.elementType == SarlTypes.STATEMENT_LIST
 
-        if(stackAlignement)
-            alignmentStack.push(Alignment.createAlignment())
-
         while (child != null) {
-            if(child.elementType != TokenType.WHITE_SPACE) {
+            if(!FormatterUtil.containsWhiteSpacesOnly(child)) {
                 val block = SarlBlock(
                         child,
                         Wrap.createWrap(WrapType.NONE, false),
-                        alignmentStack.peek(), // Alignment.createAlignment(),
+                        null,   // Alignment.createAlignment(),
                         spacingBuilder)
                 blocks.add(block)
             }
             child = child.treeNext
         }
-
-        if(stackAlignement)
-            alignmentStack.pop()
 
         return blocks
     }
@@ -76,9 +71,4 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
 
         return Indent.getNoneIndent()
     }
-
-    companion object {
-        val alignmentStack = LinkedList<Alignment>()
-    }
-
 }
