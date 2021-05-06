@@ -24,8 +24,7 @@ class SarlParserDefinition : ParserDefinition {
     override fun createFile(viewProvider: FileViewProvider) = SarlFile(viewProvider)
 
     override fun getStringLiteralElements(): TokenSet {
-        // TODO
-        return TokenSet.EMPTY
+        return TokenSet.create(SarlTypes.STRING)
     }
 
     override fun getFileNodeType() = FILE

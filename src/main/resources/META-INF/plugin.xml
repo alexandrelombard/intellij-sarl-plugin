@@ -15,10 +15,10 @@
     <depends optional="true" config-file="sarl-maven-integration.xml">org.jetbrains.idea.maven</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <annotator language="SARL" implementationClass="io.sarl.idea.language.SarlAnnotator"/>
-        <codeInsight.lineMarkerProvider
-                language="SARL"
-                implementationClass="io.sarl.idea.language.SarlLineMarkerProvider"/>
+<!--        <annotator language="SARL" implementationClass="io.sarl.idea.language.SarlAnnotator"/>-->
+<!--        <codeInsight.lineMarkerProvider-->
+<!--                language="SARL"-->
+<!--                implementationClass="io.sarl.idea.language.SarlLineMarkerProvider"/>-->
         <fileType name="SARL File" implementationClass="io.sarl.idea.SarlFileType"
                   fieldName="INSTANCE" language="SARL" extensions="sarl"/>
         <lang.parserDefinition
@@ -30,13 +30,13 @@
         <lang.psiStructureViewFactory
                 language="SARL"
                 implementationClass="io.sarl.idea.language.structure.SarlStructureViewFactory"/>
-        <lang.formatter
-                language="SARL"
-                implementationClass="io.sarl.idea.language.formatting.SarlFormattingModelBuilder"/>
+<!--        <lang.formatter-->
+<!--                language="SARL"-->
+<!--                implementationClass="io.sarl.idea.language.formatting.SarlFormattingModelBuilder"/>-->
         <lang.commenter language="SARL" implementationClass="io.sarl.idea.language.SarlCommenter"/>
-        <lang.foldingBuilder language="SARL" implementationClass="io.sarl.idea.language.SarlFoldingBuilder"/>
-        <completion.contributor language="SARL" implementationClass="io.sarl.idea.language.SarlCompletionContributor"/>
-        <psi.referenceContributor implementation="io.sarl.idea.language.reference.SarlReferenceContributor"/>
+<!--        <lang.foldingBuilder language="SARL" implementationClass="io.sarl.idea.language.SarlFoldingBuilder"/>-->
+<!--        <completion.contributor language="SARL" implementationClass="io.sarl.idea.language.SarlCompletionContributor"/>-->
+<!--        <psi.referenceContributor implementation="io.sarl.idea.language.reference.SarlReferenceContributor"/>-->
     </extensions>
 
     <actions>

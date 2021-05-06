@@ -1,74 +1,65 @@
 package io.sarl.idea.language.structure
 
-import com.intellij.ide.projectView.PresentationData
 import com.intellij.ide.structureView.StructureViewTreeElement
+import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
-import com.intellij.ide.util.treeView.smartTree.TreeElement
-import com.intellij.navigation.ItemPresentation
+import com.intellij.navigation.ColoredItemPresentation
+import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
-import com.intellij.psi.NavigatablePsiElement
-import com.intellij.psi.util.PsiTreeUtil
-import io.sarl.idea.SarlIcons
-import io.sarl.idea.language.psi.*
-import io.sarl.idea.language.psi.impl.SarlClassifierDeclarationImpl
-import io.sarl.idea.language.psi.impl.SarlImportStatementImpl
-import io.sarl.idea.language.psi.impl.SarlPackageDeclarationImpl
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiErrorElement
+import com.intellij.psi.PsiWhiteSpace
+import com.intellij.psi.impl.source.tree.LeafPsiElement
+import java.util.*
+import javax.swing.Icon
 
-class SarlStructureViewElement(val element: NavigatablePsiElement) :
-        StructureViewTreeElement, SortableTreeElement {
-    override fun navigate(requestFocus: Boolean) {
-        return element.navigate(requestFocus)
-    }
-
-    override fun getPresentation(): ItemPresentation {
-        return element.presentation ?:
-                PresentationData(
-                        element.toString(), // TODO
-                        "", // TODO
-                        SarlIcons.FILE, // TODO
-                        TextAttributesKey.createTextAttributesKey(element.toString()))  // TODO
-    }
-
-    override fun canNavigate(): Boolean {
-        return element.canNavigate()
-    }
-
-    override fun getValue(): Any {
-        return element
-    }
-
-    override fun canNavigateToSource(): Boolean {
-        return element.canNavigateToSource()
+class SarlStructureViewElement(element: PsiElement) :
+    PsiTreeElementBase<PsiElement>(element), SortableTreeElement, ColoredItemPresentation {
+    override fun getChildrenBase(): Collection<StructureViewTreeElement> {
+        val element = element
+        if (element == null || element is LeafPsiElement) return Collections.emptyList()
+        val result = arrayListOf<StructureViewTreeElement>()
+        var e = element.firstChild
+        while (e != null) {
+            if (e !is PsiWhiteSpace) {
+                result.add(SarlStructureViewElement(e))
+            }
+            e = e.nextSibling
+        }
+        return result
     }
 
     override fun getAlphaSortKey(): String {
-        return element.name ?: ""
+        return presentableText
     }
 
-    override fun getChildren(): Array<TreeElement> {
-        if(element is SarlFile) {
-            // TODO Manage the other children
-            val elements = arrayListOf<TreeElement>()
-
-            // Package declaration
-            elements.addAll(
-                    PsiTreeUtil.getChildrenOfTypeAsList(element, SarlPackageDeclaration::class.java)
-                            .map { SarlStructureViewElement(it as SarlPackageDeclarationImpl) })
-
-            // Import declarations
-            elements.addAll(
-                    PsiTreeUtil.getChildrenOfTypeAsList(element, SarlImportStatement::class.java)
-                            .map { SarlStructureViewElement(it as SarlImportStatementImpl) })
-
-            // Type declarations
-            elements.addAll(
-                    PsiTreeUtil.getChildrenOfTypeAsList(element, SarlClassifierDeclaration::class.java)
-                            .map { SarlStructureViewElement(it as SarlClassifierDeclarationImpl) })
-
-
-            return elements.toTypedArray()
+    override fun getPresentableText(): String {
+        val element = element
+        val elementType = (element?.node)?.elementType
+        if (element is LeafPsiElement) {
+            return "$elementType: '" + element.text + "'"
+        } else if (element is PsiErrorElement) {
+            return "PsiErrorElement: '" + element.errorDescription + "'"
         }
+        return elementType.toString()
+    }
 
-        return emptyArray()
+    override fun getLocationString(): String? {
+        return null
+    }
+
+    override fun getIcon(open: Boolean): Icon? {
+        val element = element
+        if (element is PsiErrorElement) {
+            return null //AllIcons.General.Error;
+        } else if (element is LeafPsiElement) {
+            return null
+        }
+        val elementType = (element?.node)?.elementType
+        return null
+    }
+
+    override fun getTextAttributesKey(): TextAttributesKey? {
+        return if (element is PsiErrorElement) CodeInsightColors.ERRORS_ATTRIBUTES else null
     }
 }

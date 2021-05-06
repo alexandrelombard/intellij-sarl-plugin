@@ -20,7 +20,7 @@
     methods("ref_expr")=[getReference]
 
     // SarlIdentifiable
-    implements("classifier_declaration")='io.sarl.idea.language.psi.SarlIdentifiable'
+//    implements("classifier_declaration")='io.sarl.idea.language.psi.SarlIdentifiable'
 
     // SarlNamedElement
 //      mixin("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration|behavior_declaration|method_declaration|val_declaration|var_declaration")='io.sarl.idea.language.psi.impl.SarlNamedElementImpl'
