@@ -19,6 +19,14 @@
 
     methods("ref_expr")=[getReference]
 
+    // SarlIdentifiable
+    implements("classifier_declaration")='io.sarl.idea.language.psi.SarlIdentifiable'
+
+    // SarlNamedElement
+//      mixin("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration|behavior_declaration|method_declaration|val_declaration|var_declaration")='io.sarl.idea.language.psi.impl.SarlNamedElementImpl'
+//      implements("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration|behavior_declaration|method_declaration|val_declaration|var_declaration")='io.sarl.idea.language.psi.SarlNamedElement'
+//      methods("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration|behavior_declaration|method_declaration|val_declaration|var_declaration")=[getName setName getNameIdentifier]
+
     tokens=[
         SEMI=';'
         COMMA=','
@@ -92,7 +100,7 @@
 
 }
 
-root ::= [ package_declaration ] ws* import_statement* ws* classifier_declaration
+root ::= [ package_declaration ] ws* [ import_statement* ] ws* classifier_declaration
 
 // region Package
 package_declaration ::= package ws* package_name
