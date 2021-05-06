@@ -1,7 +1,7 @@
 plugins {
-    kotlin("jvm") version "1.3.72"
-    id("org.jetbrains.intellij") version "0.4.21"
-    id("org.jetbrains.grammarkit") version "2020.1.2"
+    kotlin("jvm") version "1.5.0"
+    id("org.jetbrains.intellij") version "0.7.3"
+    id("org.jetbrains.grammarkit") version "2021.1.1"
 }
 
 group = "io.sarl"

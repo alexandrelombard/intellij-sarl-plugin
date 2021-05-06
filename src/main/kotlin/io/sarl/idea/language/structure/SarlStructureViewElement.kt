@@ -10,9 +10,8 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import io.sarl.idea.SarlIcons
 import io.sarl.idea.language.psi.*
-import io.sarl.idea.language.psi.impl.SarlClassDeclarationImpl
-import io.sarl.idea.language.psi.impl.SarlImportDeclarationsImpl
-import io.sarl.idea.language.psi.impl.SarlInterfaceDeclarationImpl
+import io.sarl.idea.language.psi.impl.SarlClassifierDeclarationImpl
+import io.sarl.idea.language.psi.impl.SarlImportStatementImpl
 import io.sarl.idea.language.psi.impl.SarlPackageDeclarationImpl
 
 class SarlStructureViewElement(val element: NavigatablePsiElement) :
@@ -58,16 +57,14 @@ class SarlStructureViewElement(val element: NavigatablePsiElement) :
 
             // Import declarations
             elements.addAll(
-                    PsiTreeUtil.getChildrenOfTypeAsList(element, SarlImportDeclarations::class.java)
-                            .map { SarlStructureViewElement(it as SarlImportDeclarationsImpl) })
+                    PsiTreeUtil.getChildrenOfTypeAsList(element, SarlImportStatement::class.java)
+                            .map { SarlStructureViewElement(it as SarlImportStatementImpl) })
 
-            // Type declarations // TODO Add missing ones
+            // Type declarations
             elements.addAll(
-                    PsiTreeUtil.getChildrenOfTypeAsList(element, SarlClassDeclaration::class.java)
-                            .map { SarlStructureViewElement(it as SarlClassDeclarationImpl) })
-            elements.addAll(
-                    PsiTreeUtil.getChildrenOfTypeAsList(element, SarlInterfaceDeclaration::class.java)
-                            .map { SarlStructureViewElement(it as SarlInterfaceDeclarationImpl) })
+                    PsiTreeUtil.getChildrenOfTypeAsList(element, SarlClassifierDeclaration::class.java)
+                            .map { SarlStructureViewElement(it as SarlClassifierDeclarationImpl) })
+
 
             return elements.toTypedArray()
         }

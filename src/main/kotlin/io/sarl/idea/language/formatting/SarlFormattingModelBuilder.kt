@@ -32,20 +32,19 @@ class SarlFormattingModelBuilder : FormattingModelBuilder {
             return SpacingBuilder(settings, SarlLanguage)
                     .around(TokenSet.create(
                             SarlTypes.OP_EQ,
-                            SarlTypes.OP_EQUAL,
                             SarlTypes.OP_AND,
-                            SarlTypes.OP_DIV,
+                            SarlTypes.OP_DIVIDE,
                             SarlTypes.OP_GEQ,
                             SarlTypes.OP_LEQ,
                             SarlTypes.OP_MINUS,
-                            SarlTypes.OP_MOD,
+                            SarlTypes.OP_MODULUS,
                             SarlTypes.OP_OR,
-                            SarlTypes.OP_NOT_EQUAL,
+                            SarlTypes.OP_NEQ,
                             SarlTypes.OP_TIMES))
                     .spaces(1)
                     .after(TokenSet.create(
                             SarlTypes.COLON,
-                            SarlTypes.SEMICOLON,
+                            SarlTypes.SEMI,
                             SarlTypes.COMMA))
                     .spaces(1)
                     .after(TokenSet.create(SarlTypes.LB))

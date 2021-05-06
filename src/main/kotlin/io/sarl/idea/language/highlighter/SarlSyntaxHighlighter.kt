@@ -31,19 +31,17 @@ class SarlSyntaxHighlighter : SyntaxHighlighterBase() {
             SarlTypes.CLASS,
                 SarlTypes.INTERFACE,
                 SarlTypes.AGENT,
-                SarlTypes.BEHAVIOR,
                 SarlTypes.SKILL,
+                SarlTypes.BEHAVIOR,
                 SarlTypes.CAPACITY,
                 SarlTypes.EVENT,
                 SarlTypes.PUBLIC,
                 SarlTypes.PRIVATE,
                 SarlTypes.PROTECTED,
-                SarlTypes.ABSTRACT,
                 SarlTypes.VAL,
                 SarlTypes.VAR,
                 SarlTypes.DEF,
                 SarlTypes.PACKAGE,
-                SarlTypes.USES,
                 SarlTypes.ON,
                 SarlTypes.RETURN,
                 SarlTypes.IMPORT,
@@ -58,10 +56,7 @@ class SarlSyntaxHighlighter : SyntaxHighlighterBase() {
                 SarlTypes.WHILE,
                 SarlTypes.DO,
                 SarlTypes.FOR,
-                SarlTypes.NEW,
-                SarlTypes.EXTENDS,
-                SarlTypes.IMPLEMENTS,
-                SarlTypes.STATIC -> KEYWORD_KEYS
+                SarlTypes.NEW -> KEYWORD_KEYS
             else -> EMPTY_KEYS
         }
     }

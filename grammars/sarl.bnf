@@ -1,229 +1,223 @@
 {
-  parserClass='io.sarl.idea.language.parser.SarlParser'
-  parserUtilClass='io.sarl.idea.language.parser.SarlParserUtil'
+    parserClass='io.sarl.idea.language.parser.SarlParser'
+    parserUtilClass='io.sarl.idea.language.parser.SarlParserUtil'
 
-  extends='com.intellij.extapi.psi.ASTWrapperPsiElement'
+    extends='com.intellij.extapi.psi.ASTWrapperPsiElement'
 
-  psiClassPrefix='Sarl'
-  psiImplClassSuffix='Impl'
-  psiPackage='io.sarl.idea.language.psi'
-  psiImplPackage='io.sarl.idea.language.psi.impl'
+    psiClassPrefix='Sarl'
+    psiImplClassSuffix='Impl'
+    psiPackage='io.sarl.idea.language.psi'
+    psiImplPackage='io.sarl.idea.language.psi.impl'
 
-  elementTypeHolderClass='io.sarl.idea.language.psi.SarlTypes'
-  elementTypeClass='io.sarl.idea.language.psi.SarlElementType'
-  tokenTypeClass='io.sarl.idea.language.psi.SarlTokenType'
+    elementTypeHolderClass='io.sarl.idea.language.psi.SarlTypes'
+    elementTypeClass='io.sarl.idea.language.psi.SarlElementType'
+    tokenTypeClass='io.sarl.idea.language.psi.SarlTokenType'
 
-  psiImplUtilClass='io.sarl.idea.language.psi.impl.SarlPsiImplUtil'
+    psiImplUtilClass='io.sarl.idea.language.psi.impl.SarlPsiImplUtil'
 
-  extends(".*expr")=expr
-  extends(".*statement")=statement
+    extends(".*expr")=expr
 
-  methods("ref_expr")=[getReference]
+    methods("ref_expr")=[getReference]
 
-  // SarlIdentifiable
-  implements("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration|behavior_declaration|method_declaration|val_declaration|var_declaration")='io.sarl.idea.language.psi.SarlIdentifiable'
+    tokens=[
+        SEMI=';'
+        COMMA=','
+        COLON=':'
+        DOT='.'
+        LP='('
+        RP=')'
+        LB='{'
+        RB='}'
+        EQ='='
 
-  // SarlNamedElement
-  mixin("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration|behavior_declaration|method_declaration|val_declaration|var_declaration")='io.sarl.idea.language.psi.impl.SarlNamedElementImpl'
-  implements("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration|behavior_declaration|method_declaration|val_declaration|var_declaration")='io.sarl.idea.language.psi.SarlNamedElement'
-  methods("class_declaration|interface_declaration|agent_declaration|event_declaration|skill_declaration|capacity_declaration|behavior_declaration|method_declaration|val_declaration|var_declaration")=[getName setName getNameIdentifier]
+        OP_PLUS_EQ='+='
+        OP_MINUS_EQ='-='
+        OP_TIMES_EQ='*='
+        OP_DIV_EQ='/='
+        OP_INC='++'
+        OP_DEC='--'
+        OP_PLUS='+'
+        OP_MINUS='-'
+        OP_TIMES='*'
+        OP_DIVIDE='/'
+        OP_MODULUS='%'
+        OP_LEQ='<='
+        OP_GEQ='>='
+        OP_LT='<'
+        OP_GT='>'
+        OP_EQ='=='
+        OP_NEQ='!='
+        OP_OR='||'
+        OP_AND='&&'
 
-  tokens = [
-    LB = '{'
-    RB = '}'
-    LBR = '['
-    RBR = ']'
-    LP = '('
-    RP = ')'
-    COMMA = ','
-    COLON = ':'
-    SEMICOLON = ';'
-    DOT = '.'
+        break='break'
+        continue='continue'
+        class='class'
+        event='event'
+        agent='agent'
+        interface='interface'
+        skill='skill'
+        capacity='capacity'
+        val='val'
+        var='var'
+        package='package'
+        import='import'
+        public='public'
+        private='private'
+        protected='protected'
+        on='on'
+        new='new'
+        def='def'
+        occurrence='occurrence'
 
-    OP_EQUAL = '=='
-    OP_NOT_EQUAL = '!='
-    OP_GT = '>'
-    OP_LT = '<'
-    OP_GEQ = '>='
-    OP_LEQ = '<='
-    OP_AND = '&&'
-    OP_OR = '||'
+        int='int'
+        float='float'
+        double='double'
+        this='this'
+        it='it'
+        true='true'
+        false='false'
 
-    OP_EQ = '='
-    OP_MINUS = '-'
-    OP_PLUS = '+'
-    OP_TIMES = '*'
-    OP_DIV = '/'
-    OP_MOD = '%'
+        space='regexp:[ \t]'
+        nl='regexp:(\n|\r\n)+'
+        ws='regexp:\s+'
+        line_comment='regexp://.*'
+        block_comment='regexp:/\*(.|\n)*\*/'
+        hex_number='regexp:0x([0-9A-Fa-f])+'
+        number='regexp:\d+(\.\d*)?'
+        string='regexp:"([^"]|\\")*"'
+        bool="regexp:true|false"
+        id='regexp:[A-Za-z][A-Za-z0-9_]*'
+    ]
 
-    final = 'final'
-    package = 'package'
-    import = 'import'
-    class = 'class'
-    interface = 'interface'
-    agent = 'agent'
-    event = 'event'
-    behavior = 'behavior'
-    skill = 'skill'
-    capacity = 'capacity'
-    private = 'private'
-    public = 'public'
-    protected = 'protected'
-    abstract = 'abstract'
-    extends = 'extends'
-    implements = 'implements'
-    on = 'on'
-    val = 'val'
-    return = 'return'
-    occurrence = 'occurrence'
-    this = 'this'
-    if = 'if'
-    else = 'else'
-    break = 'break'
-    continue = 'continue'
-    true = 'true'
-    false = 'false'
-    while = 'while'
-    do = 'do'
-    for = 'for'
-    new = 'new'
-    static = 'static'
-
-    STRING = 'regexp:"[^"]*"'
-    NUMBER = 'regexp:[0-9]+'
-
-    IMPORT_PACKAGE = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*\.\*'
-    SIMPLE_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
-//    DOT_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*'
-//    DOT_IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
-    LINE_COMMENT = 'regexp://.*'
-    BLOCK_COMMENT = 'regexp:/\*.*?\*/'
-    WHITE_SPACE = 'regexp:\s+'
-  ]
 }
 
-sarl_file ::= package_declaration? import_declarations? type_declaration?
+root ::= [ package_declaration ] ws* import_statement* ws* classifier_declaration
 
-package_declaration ::= package identifier
-import_declarations ::= import_declaration+
-import_declaration ::= import (IMPORT_PACKAGE | identifier)
+// region Package
+package_declaration ::= package ws* package_name
+package_name ::= package_unit [(DOT package_unit)*] [DOT '*'] line_break
+package_unit ::= id
+import_statement ::= import ws* package_name ws*
+// endregion
 
-private type_declaration ::= class_declaration |
-        interface_declaration |
-        agent_declaration |
-        event_declaration |
-        behavior_declaration |
-        skill_declaration |
-        capacity_declaration
+// region Classifiers
+classifier_declaration ::= classifier_type ws* valid_identifier (ws|nl)* LB classifier_body RB
+classifier_type ::= (class|agent|event|interface|skill|capacity|behavior)
+classifier_body ::= (ws|nl)* (constructor_declaration|uses_declaration|member_declaration|method_declaration|on_declaration)* (ws|nl)*
 
-class_declaration ::= visibility_modifier? final? abstract? class identifier generics_parameter_list? extends_section? implements_section? LB class_body? RB
-interface_declaration ::= visibility_modifier? interface identifier generics_parameter_list? extends_section? LB interface_body RB
-agent_declaration ::= agent identifier LB agent_body? RB
-event_declaration ::= event identifier LB event_body? RB
-skill_declaration ::= skill identifier LB skill_body? RB
-behavior_declaration ::= abstract? behavior identifier LB behavior_body? RB
-capacity_declaration ::= capacity identifier LB capacity_body? RB
-visibility_modifier ::= public | private | protected
-extends_section ::= extends identifier (COMMA identifier)*
-implements_section ::= implements identifier (COMMA identifier)*
+member_visibility ::= public|private|protected
+member_declaration ::= [ member_visibility ws* ] variable_declaration ws*
+// endregion
 
-identifier ::= SIMPLE_IDENTIFIER DOT identifier | SIMPLE_IDENTIFIER
-//type_identifier ::= (DOT_IDENTIFIER | SIMPLE_IDENTIFIER)
+// region Variables
+variable_declaration ::= variable_mutability ws* valid_identifier (variable_type? variable_initializer | variable_type)
+variable_mutability ::= (var|val)
+variable_type ::= ws* COLON ws* valid_type ws*
+variable_initializer ::= EQ expr
+// endregion
 
-class_body ::= (static_constructor_declaration | member_declaration | constructor_declaration | method_declaration)+
-event_body ::= (member_declaration | constructor_declaration | method_declaration)+
-skill_body ::= (member_declaration | constructor_declaration | method_declaration)+
-interface_body ::= (member_declaration | method_declaration)+
-capacity_body ::= (member_declaration | method_declaration)+
-agent_body ::= (uses_declaration | member_declaration | constructor_declaration | on_declaration | method_declaration)+
-behavior_body ::= (uses_declaration | member_declaration | constructor_declaration | on_declaration | method_declaration)+
+// region Functions
+method_declaration ::= [ member_visibility ws* ] function_declaration
 
-generics_parameter_list ::= OP_LT generic_parameter (COMMA generic_parameter)* OP_GT
-generic_parameter ::= ('?' | SIMPLE_IDENTIFIER) (extends identifier)?
+constructor_declaration ::= new ws* [parameters_declaration] ws* function_body ws*
 
-static_constructor_declaration ::= static new LB statement_list RB
-constructor_declaration ::= visibility_modifier? abstract? new LP parameter_declaration_list? RP LB statement_list RB
-member_declaration ::= static? visibility_modifier? (val_declaration | var_declaration)
-method_declaration ::= static? visibility_modifier? abstract? def identifier LP parameter_declaration_list? RP LB statement_list? RB
-on_declaration ::= on identifier lambda_expr? LB statement_list RB
-parameter_declaration_list ::= parameter_declaration (COMMA parameter_declaration)*
-parameter_declaration ::= SIMPLE_IDENTIFIER variable_type
+function_declaration ::= def ws* valid_identifier [parameters_declaration] [ COLON return_type ] (ws|nl)* function_body ws*
+return_type ::= valid_type
 
-uses_declaration ::= uses identifier (COMMA identifier)*
-val_declaration ::= val identifier variable_type? variable_initializer?
-var_declaration ::= var identifier variable_type? variable_initializer?
-variable_type ::= COLON identifier
-variable_initializer ::= OP_EQ expr
+parameters_declaration ::= LP (ws|nl)* (parameter_declaration (ws|nl)* (COMMA (ws|nl)* parameter_declaration)*)? RP
+parameter_declaration ::= valid_identifier ws* COLON ws* valid_type
 
-statement_list ::= statement*
-statement ::=
-    val_declaration_statement |
-    var_declaration_statement |
-    return_statement |
-    function_call_statement |
-    if_statement |
-    while_statement |
-    do_while_statement |
-    for_statement |
-    break_statement |
-    continue_statement |
-    assign_statement
-val_declaration_statement ::= val_declaration
-var_declaration_statement ::= var_declaration
-function_call_statement ::= function_call_expr
-return_statement ::= return expr
-if_statement ::= if_expr
-break_statement ::= break
-continue_statement ::= continue
-while_statement ::= while LP expr RP while_content
-do_while_statement ::= do LB do_while_content RB while LP expr RP
-for_statement ::= for LP identifier COLON expr RP for_content
-assign_statement ::= assign_expr
+parameters_list ::= expr [(COMMA expr)*]
 
-expr ::=
-    assign_expr |
-    boolean_group |
-    compare_group |
-    add_group |
-    mul_group |
-    unary_group |
-    primary_group
+function_body ::= LB ws* expression_block ws* RB
+// endregion
 
-private unary_group ::= unary_plus_expr | unary_min_expr
+// region On
+on_declaration ::= on valid_identifier [ lambda_expr ] LB ws* expression_block ws* RB ws*
+// endregion
+
+// region Uses
+uses_declaration ::= ws* uses valid_identifier [(COMMA valid_identifier)*] ws*
+// endregion
+
+// region Expression
+expression_block ::= (expr (ws* expr)* ws*) | ws*
+expr ::= (add_group | mul_group | unary_group | boolean_group | cmp_group | standard_group | structure_group | assign_group | constructor_expr | function_call_expr | (simple_ref_expr | qualified_ref_expr) | primary_group)
+
+private unary_group ::= unary_plus_expr | unary_min_expr | array_access_expr
+private boolean_group ::= or_expr | and_expr
+private cmp_group ::= lt_expr | gt_expr | geq_expr | leq_expr | eq_expr | neq_expr
 private mul_group ::= mul_expr | div_expr
 private add_group ::= plus_expr | minus_expr
-private compare_group ::= compare_expr
-private boolean_group ::= boolean_expr
-private primary_group ::= new_expr | function_call_expr | lambda_expr | field_access_expr | ref_expr | literal_expr | paren_expr
+private standard_group ::= var_expr
+private structure_group ::= lambda_expr | if_expr | while_expr | do_while_expr | for_loop_expr | for_each_expr | break_expr | continue_expr
+private assign_group ::= assign_expr | plus_eq_expr | minus_eq_expr | times_eq_expr | div_eq_expr | prefix_inc_expr | postfix_inc_expr | prefix_dec_expr | postfix_dec_expr
+private primary_group ::= literal_expr | paren_expr | return_expr
 
-assign_expr ::= expr assign_op expr { rightAssociative=true }
-assign_op ::= '=' | '*=' | '/=' | '%=' | '+=' | '-='
-compare_expr ::= expr compare_op expr
-boolean_expr ::= expr boolean_op expr
-boolean_op ::= OP_AND | OP_OR
-compare_op ::= OP_EQUAL | OP_NOT_EQUAL | OP_GT | OP_LT | OP_GEQ | OP_LEQ
+lt_expr ::= expr OP_LT expr
+gt_expr ::= expr OP_GT expr
+geq_expr ::= expr OP_GEQ expr
+leq_expr ::= expr OP_LEQ expr
+eq_expr ::= expr OP_EQ expr
+neq_expr ::= expr OP_NEQ expr
+or_expr ::= expr OP_OR expr
+and_expr ::= expr OP_AND expr
 unary_min_expr ::= OP_MINUS expr
 unary_plus_expr ::= OP_PLUS expr
-div_expr ::= expr OP_DIV expr
+div_expr ::= expr OP_DIVIDE expr
 mul_expr ::= expr OP_TIMES expr
-minus_expr ::= expr OP_MINUS expr
 plus_expr ::= expr OP_PLUS expr
-paren_expr ::= '(' expr ')'
-field_access_expr ::= expr DOT expr
+minus_expr ::= expr OP_MINUS expr
+plus_eq_expr ::= expr OP_PLUS_EQ expr
+minus_eq_expr ::= expr OP_MINUS_EQ expr
+times_eq_expr ::= expr OP_TIMES_EQ expr
+div_eq_expr ::= expr OP_DIV_EQ expr
+postfix_inc_expr ::= expr OP_INC
+prefix_inc_expr ::= OP_INC expr
+postfix_dec_expr ::= expr OP_DEC
+prefix_dec_expr ::= OP_DEC expr
+assign_expr ::= expr EQ expr { rightAssociative=true }
+paren_expr ::= LP expr RP
+literal_expr ::= hex_number | number | string | true | false
+return_expr ::= return expr
+array_access_expr ::= expr '[' number ']'
+constructor_expr ::= new valid_type LP parameters_list? RP
 
-if_expr ::= if LP expr RP if_content (else else_content)?
-if_content ::= statement | LB statement_list RB
-else_content ::= statement | LB statement_list RB
-while_content ::= statement | LB statement_list RB
-do_while_content ::= statement_list
-for_content ::= statement | LB statement_list RB
+fake ref_expr ::= expr? DOT valid_identifier
+simple_ref_expr ::= valid_identifier {extends=ref_expr elementType=ref_expr}
+qualified_ref_expr ::= expr DOT valid_identifier {extends=ref_expr elementType=ref_expr}
 
-lambda_expr ::= LBR (parameter_declaration_list '|')? statement_list RBR
+var_expr ::= variable_declaration
 
-new_expr ::= new identifier LP parameter_list? RP
-function_call_expr ::= SIMPLE_IDENTIFIER LP parameter_list? RP lambda_expr?
-ref_expr ::= occurrence | this | SIMPLE_IDENTIFIER
-literal_expr ::= NUMBER | STRING | false | true
+break_expr ::= break
+continue_expr ::= continue
 
-parameter_list ::= parameter (COMMA parameter)*
-parameter ::= expr
+if_expr ::= if LP condition RP if_block [ ws* else else_block ]
+if_block ::= (LB ws* expression_block ws* RB | expr)
+else_block ::= (LB ws* expression_block ws* RB | expr)
+while_expr ::= while condition LB ws* expression_block ws* RB
+do_while_expr ::= do LB ws* expression_block ws* RB while LP condition RP
+for_each_expr ::= for LP valid_identifier COLON valid_identifier RP LB ws* expression_block ws* RB
+
+for_loop_expr ::= for LP for_loop_init SEMI for_loop_condition SEMI for_loop_step RP LB ws* expression_block ws* RB
+for_loop_init ::= expr
+for_loop_condition ::= expr
+for_loop_step ::= expr
+
+condition ::= expr
+
+function_call_expr ::= valid_identifier LP ws* [parameters_list] ws* RP
+
+lambda_expr ::= '[' ws* [lambda_parameters_list ws* '|' ws*] expression_block ws* ']'
+lambda_parameters_list ::= (valid_identifier [COLON valid_type])*
+
+// endregion
+
+// region Identifiers
+valid_type ::= valid_identifier | primitive_type
+primitive_type ::= int | float | double
+valid_identifier ::= this | it | occurrence | id
+// endregion
+
+line_break ::= nl+

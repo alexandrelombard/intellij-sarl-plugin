@@ -25,21 +25,10 @@ class SarlFoldingBuilder : FoldingBuilderEx(), DumbAware {
         val blocks =
                 PsiTreeUtil.findChildrenOfAnyType(
                         root,
-                        SarlAgentDeclaration::class.java,
-                        SarlClassDeclaration::class.java,
-                        SarlInterfaceDeclaration::class.java,
-                        SarlSkillDeclaration::class.java,
-                        SarlCapacityDeclaration::class.java,
-                        SarlBehaviorDeclaration::class.java,
+                        SarlClassifierDeclaration::class.java,
                         SarlMethodDeclaration::class.java,
-                        SarlStaticConstructorDeclaration::class.java,
-                        SarlConstructorDeclaration::class.java,
                         SarlOnDeclaration::class.java,
-                        SarlIfContent::class.java,
-                        SarlElseContent::class.java,
-                        SarlWhileContent::class.java,
-                        SarlDoWhileContent::class.java,
-                        SarlForContent::class.java)
+                        SarlExpressionBlock::class.java)
         // Evaluate the collection
         for (block in blocks) {
             descriptors.add(FoldingDescriptor(

@@ -24,7 +24,7 @@ class SarlCompletionContributor : CompletionContributor() {
                 }
         )
 
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement().inside(false, PlatformPatterns.psiElement(SarlTypes.IMPORT_DECLARATION)),
+        extend(CompletionType.BASIC, PlatformPatterns.psiElement().inside(false, PlatformPatterns.psiElement(SarlTypes.IMPORT_STATEMENT)),
                 object : CompletionProvider<CompletionParameters>() {
                     override fun addCompletions(parameters: CompletionParameters,
                                                 context: ProcessingContext,
@@ -36,7 +36,7 @@ class SarlCompletionContributor : CompletionContributor() {
         )
 
         // FIXME
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement().inside(false, PlatformPatterns.psiElement(SarlTypes.CLASS_DECLARATION)),
+        extend(CompletionType.BASIC, PlatformPatterns.psiElement().inside(false, PlatformPatterns.psiElement(SarlTypes.CLASSIFIER_DECLARATION)),
                 object : CompletionProvider<CompletionParameters>() {
                     override fun addCompletions(parameters: CompletionParameters,
                                                 context: ProcessingContext,
@@ -47,7 +47,7 @@ class SarlCompletionContributor : CompletionContributor() {
         )
 
         // Field access
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement().inside(false, PlatformPatterns.psiElement(SarlTypes.FIELD_ACCESS_EXPR)),
+        extend(CompletionType.BASIC, PlatformPatterns.psiElement().inside(false, PlatformPatterns.psiElement(SarlTypes.REF_EXPR)),
                 object : CompletionProvider<CompletionParameters>() {
                     override fun addCompletions(parameters: CompletionParameters,
                                                 context: ProcessingContext,
@@ -59,7 +59,7 @@ class SarlCompletionContributor : CompletionContributor() {
         )
 
         // FIXME Not working
-        extend(CompletionType.SMART, PlatformPatterns.psiElement().withSuperParent(10, PlatformPatterns.psiElement(SarlTypes.CLASS_BODY)),
+        extend(CompletionType.SMART, PlatformPatterns.psiElement().withSuperParent(10, PlatformPatterns.psiElement(SarlTypes.CLASSIFIER_BODY)),
                 object : CompletionProvider<CompletionParameters>() {
                     override fun addCompletions(parameters: CompletionParameters,
                                                 context: ProcessingContext,

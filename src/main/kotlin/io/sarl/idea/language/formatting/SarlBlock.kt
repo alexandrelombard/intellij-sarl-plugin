@@ -5,7 +5,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.TokenType
 import com.intellij.psi.formatter.FormatterUtil
 import com.intellij.psi.formatter.common.AbstractBlock
-import io.sarl.idea.language.psi.SarlStatement
+import io.sarl.idea.language.psi.SarlExpressionBlock
 import io.sarl.idea.language.psi.SarlTypes
 import org.apache.commons.collections.ArrayStack
 import java.util.*
@@ -19,8 +19,8 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
 
         // FIXME This stack alignment thing isn't really working
         val stackAlignement =
-                myNode.elementType == SarlTypes.CLASS_BODY ||
-                myNode.elementType == SarlTypes.STATEMENT_LIST
+                myNode.elementType == SarlTypes.CLASSIFIER_BODY ||
+                myNode.elementType == SarlTypes.EXPRESSION_BLOCK
 
         while (child != null) {
             if(!FormatterUtil.containsWhiteSpacesOnly(child)) {
@@ -48,23 +48,17 @@ class SarlBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val s
     override fun getIndent(): Indent {
         // Basic cases
         when(myNode.elementType) {
-            SarlTypes.AGENT_BODY,
-                SarlTypes.CLASS_BODY,
-                SarlTypes.INTERFACE_BODY,
-                SarlTypes.EVENT_BODY,
-                SarlTypes.SKILL_BODY,
-                SarlTypes.CAPACITY_BODY,
-                SarlTypes.BEHAVIOR_BODY -> return Indent.getNormalIndent()
+            SarlTypes.CLASSIFIER_BODY -> return Indent.getNormalIndent()
         }
 
-        if(myNode.psi is SarlStatement) {
+        if(myNode.psi is SarlExpressionBlock) {
             // Statements are indented relatively to their statement list
             return Indent.getNormalIndent()
         }
 
         if((myNode.elementType == SarlTypes.LINE_COMMENT ||
                 myNode.elementType == SarlTypes.BLOCK_COMMENT) &&
-                myNode.treeParent.findChildByType(SarlTypes.STATEMENT_LIST) != null) {
+                myNode.treeParent.findChildByType(SarlTypes.EXPRESSION_BLOCK) != null) {
             // Comments next to a statement list should be indented like the statement list
             return Indent.getNormalIndent()
         }
