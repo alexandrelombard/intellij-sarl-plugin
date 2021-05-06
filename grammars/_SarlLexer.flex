@@ -26,7 +26,7 @@ EOL=\R
 WHITE_SPACE=\s+
 
 SPACE=[ \t]
-NL=(\n|\r\n)+
+NL=(\n|\r\n|\r)+
 WS=[ \t\n\x0B\f\r]+
 LINE_COMMENT="//".*
 BLOCK_COMMENT="/"\*(.|\n)*\*"/"

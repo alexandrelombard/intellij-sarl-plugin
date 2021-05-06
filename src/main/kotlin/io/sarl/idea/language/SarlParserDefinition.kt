@@ -15,7 +15,7 @@ import io.sarl.idea.lexer.SarlLexerAdapter
 
 class SarlParserDefinition : ParserDefinition {
     companion object {
-        val WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE)
+        val WHITE_SPACES = TokenSet.EMPTY   // FIXME
         val COMMENTS = TokenSet.create(SarlTypes.LINE_COMMENT, SarlTypes.BLOCK_COMMENT)
         val FILE = IFileElementType(SarlLanguage)
     }
@@ -31,4 +31,5 @@ class SarlParserDefinition : ParserDefinition {
     override fun createLexer(project: Project) = SarlLexerAdapter()
     override fun createElement(node: ASTNode) = SarlTypes.Factory.createElement(node)
     override fun getCommentTokens() = COMMENTS
+    override fun getWhitespaceTokens() = WHITE_SPACES
 }

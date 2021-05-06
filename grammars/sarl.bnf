@@ -87,7 +87,7 @@
         false='false'
 
         space='regexp:[ \t]'
-        nl='regexp:(\n|\r\n)+'
+        nl='regexp:(\n|\r\n|\r)+'
         ws='regexp:\s+'
         line_comment='regexp://.*'
         block_comment='regexp:/\*(.|\n)*\*/'
@@ -100,11 +100,11 @@
 
 }
 
-root ::= [ package_declaration ] ws* [ import_statement* ] ws* classifier_declaration
+root ::= [ (ws|nl)* package_declaration ] ws* [ import_statement* ] ws* classifier_declaration
 
 // region Package
 package_declaration ::= package ws* package_name
-package_name ::= package_unit [(DOT package_unit)*] [DOT '*'] line_break
+package_name ::= package_unit [(DOT package_unit)*] [DOT '*'] nl+
 package_unit ::= id
 import_statement ::= import ws* package_name ws*
 // endregion
@@ -227,5 +227,3 @@ valid_type ::= valid_identifier | primitive_type
 primitive_type ::= int | float | double
 valid_identifier ::= this | it | occurrence | id
 // endregion
-
-line_break ::= nl+
