@@ -29,6 +29,7 @@ class SarlSyntaxHighlighter : SyntaxHighlighterBase() {
             SarlTypes.LINE_COMMENT -> LINE_COMMENT_KEYS
             SarlTypes.STRING -> STRING_KEYS
             SarlTypes.CLASS,
+                SarlTypes.USES,
                 SarlTypes.INTERFACE,
                 SarlTypes.AGENT,
                 SarlTypes.SKILL,
