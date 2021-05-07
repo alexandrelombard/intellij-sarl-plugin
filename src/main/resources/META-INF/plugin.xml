@@ -10,36 +10,68 @@
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.java</depends>
 
     <depends optional="true" config-file="sarl-maven-integration.xml">org.jetbrains.idea.maven</depends>
 
+    <resource-bundle>messages.SarlBundle</resource-bundle>
+
     <extensions defaultExtensionNs="com.intellij">
-<!--        <annotator language="SARL" implementationClass="io.sarl.idea.language.SarlAnnotator"/>-->
-<!--        <codeInsight.lineMarkerProvider-->
-<!--                language="SARL"-->
-<!--                implementationClass="io.sarl.idea.language.SarlLineMarkerProvider"/>-->
+        <!-- Project and module creation -->
+        <moduleType id="SARL_MODULE" implementationClass="io.sarl.idea.project.SarlModuleType"/>
+
+        <!-- File type factory -->
         <fileType name="SARL File" implementationClass="io.sarl.idea.SarlFileType"
                   fieldName="INSTANCE" language="SARL" extensions="sarl"/>
+
+        <!-- Parser -->
         <lang.parserDefinition
                 language="SARL"
                 implementationClass="io.sarl.idea.language.SarlParserDefinition"/>
+
+        <!-- Annotators -->
+<!--        <annotator language="SARL" implementationClass="io.sarl.idea.language.SarlAnnotator"/>-->
+
+        <!-- Completion -->
+<!--        <completion.contributor language="SARL" implementationClass="io.sarl.idea.language.SarlCompletionContributor"/>-->
+<!--        <psi.referenceContributor implementation="io.sarl.idea.language.reference.SarlReferenceContributor"/>-->
+
+<!--        <codeInsight.lineMarkerProvider-->
+<!--                language="SARL"-->
+<!--                implementationClass="io.sarl.idea.language.SarlLineMarkerProvider"/>-->
+
+        <!-- Highlighter -->
         <lang.syntaxHighlighterFactory
                 language="SARL"
                 implementationClass="io.sarl.idea.language.highlighter.SarlSyntaxHighlighterFactory"/>
+
+        <!-- Structure view (AST view) -->
         <lang.psiStructureViewFactory
                 language="SARL"
                 implementationClass="io.sarl.idea.language.structure.SarlStructureViewFactory"/>
+
+        <!-- Formatter/commenter -->
 <!--        <lang.formatter-->
 <!--                language="SARL"-->
 <!--                implementationClass="io.sarl.idea.language.formatting.SarlFormattingModelBuilder"/>-->
         <lang.commenter language="SARL" implementationClass="io.sarl.idea.language.SarlCommenter"/>
         <lang.foldingBuilder language="SARL" implementationClass="io.sarl.idea.language.SarlFoldingBuilder"/>
-<!--        <completion.contributor language="SARL" implementationClass="io.sarl.idea.language.SarlCompletionContributor"/>-->
-<!--        <psi.referenceContributor implementation="io.sarl.idea.language.reference.SarlReferenceContributor"/>-->
+
+        <!--File type support-->
+<!--        <internalFileTemplate name="Sarl Class"/>-->
+<!--        <internalFileTemplate name="Sarl Agent"/>-->
+<!--        <internalFileTemplate name="Sarl Behavior"/>-->
+<!--        <internalFileTemplate name="Sarl Capacity"/>-->
+<!--        <internalFileTemplate name="Sarl Event"/>-->
+<!--        <internalFileTemplate name="Sarl Skill"/>-->
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
+        <!-- Create a new SARL file -->
+        <action id="Sarl.NewFile" class="io.sarl.idea.actions.NewSarlFileAction"
+                text="Sarl File" description="Create new SARL file">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+        </action>
     </actions>
 </idea-plugin>

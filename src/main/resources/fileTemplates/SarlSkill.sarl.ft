@@ -1,0 +1,24 @@
+package ${PACKAGE_NAME}
+
+import io.sarl.core.Logging
+import io.sarl.lang.core.Capacity
+
+/**
+* @author ${AUTHOR}
+*
+*/
+skill ${NAME} implements Capacity {
+    uses Logging
+
+    def install {
+        // Function invoked when the skill is installed in the owner.
+        // You should put all the initialization statements in this block of code.
+        info("Installing the skill")
+    }
+
+    def uninstall {
+        // Function invoked when the skill is uninstalled from the owner.
+        // You should put all the resource release statements in this block of code.
+        info("Uninstalling the skill")
+    }
+}

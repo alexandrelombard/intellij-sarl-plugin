@@ -1,0 +1,9 @@
+package ${PACKAGE_NAME}
+
+/**
+* @author ${AUTHOR}
+*
+*/
+capacity ${NAME} {
+
+}
