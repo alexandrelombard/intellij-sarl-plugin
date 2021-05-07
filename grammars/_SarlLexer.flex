@@ -26,7 +26,7 @@ EOL=\R
 WHITE_SPACE=\s+
 
 NL=(\n|\r\n|\r)+
-SPACE=[ \t\n\x0B\f\r]+
+WHITE_SPACE=[ \t\n\x0B\f\r]+
 LINE_COMMENT="//".*
 BLOCK_COMMENT="/"\*(.|\n)*\*"/"
 HEX_NUMBER=0x([0-9A-Fa-f])+
@@ -103,7 +103,7 @@ ID=[A-Za-z][A-Za-z0-9_]*
   "for"                { return FOR; }
 
   {NL}                 { return NL; }
-  {SPACE}              { return SPACE; }
+  {WHITE_SPACE}        { return WHITE_SPACE; }
   {LINE_COMMENT}       { return LINE_COMMENT; }
   {BLOCK_COMMENT}      { return BLOCK_COMMENT; }
   {HEX_NUMBER}         { return HEX_NUMBER; }

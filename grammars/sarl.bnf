@@ -87,7 +87,7 @@
         false='false'
 
         nl='regexp:(\n|\r\n|\r)+'
-        space='regexp:\s+'
+        ws='regexp:\s+'
         line_comment='regexp://.*'
         block_comment='regexp:/\*(.|\n)*\*/'
         hex_number='regexp:0x([0-9A-Fa-f])+'
@@ -99,7 +99,7 @@
 
 }
 
-root ::= [ (nl)* package_declaration ] [ import_statement* ] classifier_declaration
+root ::= nl* [ package_declaration ] [ import_statement* ] classifier_declaration
 
 // region Package
 package_declaration ::= package package_name
