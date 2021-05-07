@@ -31,5 +31,5 @@ class SarlParserDefinition : ParserDefinition {
     override fun createLexer(project: Project) = SarlLexerAdapter()
     override fun createElement(node: ASTNode) = SarlTypes.Factory.createElement(node)
     override fun getCommentTokens() = COMMENTS
-    override fun getWhitespaceTokens() = WHITE_SPACES
+    // override fun getWhitespaceTokens() = WHITE_SPACES
 }

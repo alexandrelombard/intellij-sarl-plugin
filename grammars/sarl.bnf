@@ -86,9 +86,8 @@
         true='true'
         false='false'
 
-        space='regexp:[ \t]'
         nl='regexp:(\n|\r\n|\r)+'
-        ws='regexp:\s+'
+        space='regexp:\s+'
         line_comment='regexp://.*'
         block_comment='regexp:/\*(.|\n)*\*/'
         hex_number='regexp:0x([0-9A-Fa-f])+'
@@ -100,57 +99,57 @@
 
 }
 
-root ::= [ (ws|nl)* package_declaration ] ws* [ import_statement* ] ws* classifier_declaration
+root ::= [ (nl)* package_declaration ] [ import_statement* ] classifier_declaration
 
 // region Package
-package_declaration ::= package ws* package_name
+package_declaration ::= package package_name
 package_name ::= package_unit [(DOT package_unit)*] [DOT '*'] nl+
 package_unit ::= id
-import_statement ::= import ws* package_name ws*
+import_statement ::= import package_name
 // endregion
 
 // region Classifiers
-classifier_declaration ::= classifier_type ws* valid_identifier (ws|nl)* LB classifier_body RB
+classifier_declaration ::= classifier_type valid_identifier (nl)* LB classifier_body RB
 classifier_type ::= (class|agent|event|interface|skill|capacity|behavior)
-classifier_body ::= (ws|nl)* (constructor_declaration|uses_declaration|member_declaration|method_declaration|on_declaration)* (ws|nl)*
+classifier_body ::= (nl)* (constructor_declaration|uses_declaration|member_declaration|method_declaration|on_declaration)* (nl)*
 
 member_visibility ::= public|private|protected
-member_declaration ::= [ member_visibility ws* ] variable_declaration ws*
+member_declaration ::= [ member_visibility ] variable_declaration
 // endregion
 
 // region Variables
-variable_declaration ::= variable_mutability ws* valid_identifier (variable_type? variable_initializer | variable_type)
+variable_declaration ::= variable_mutability valid_identifier (variable_type? variable_initializer | variable_type)
 variable_mutability ::= (var|val)
-variable_type ::= ws* COLON ws* valid_type ws*
+variable_type ::= COLON valid_type
 variable_initializer ::= EQ expr
 // endregion
 
 // region Functions
-method_declaration ::= [ member_visibility ws* ] function_declaration
+method_declaration ::= [ member_visibility ] function_declaration
 
-constructor_declaration ::= new ws* [parameters_declaration] ws* function_body ws*
+constructor_declaration ::= new [parameters_declaration] function_body
 
-function_declaration ::= def ws* valid_identifier [parameters_declaration] [ COLON return_type ] (ws|nl)* function_body ws*
+function_declaration ::= def valid_identifier [parameters_declaration] [ COLON return_type ] (nl)* function_body
 return_type ::= valid_type
 
-parameters_declaration ::= LP (ws|nl)* (parameter_declaration (ws|nl)* (COMMA (ws|nl)* parameter_declaration)*)? RP
-parameter_declaration ::= valid_identifier ws* COLON ws* valid_type
+parameters_declaration ::= LP (nl)* (parameter_declaration (nl)* (COMMA (nl)* parameter_declaration)*)? RP
+parameter_declaration ::= valid_identifier COLON valid_type
 
 parameters_list ::= expr [(COMMA expr)*]
 
-function_body ::= LB ws* expression_block ws* RB
+function_body ::= LB expression_block RB
 // endregion
 
 // region On
-on_declaration ::= on valid_identifier [ lambda_expr ] LB ws* expression_block ws* RB ws*
+on_declaration ::= on valid_identifier [ lambda_expr ] LB expression_block RB
 // endregion
 
 // region Uses
-uses_declaration ::= ws* uses valid_identifier [(COMMA valid_identifier)*] ws*
+uses_declaration ::= uses valid_identifier [(COMMA valid_identifier)*]
 // endregion
 
 // region Expression
-expression_block ::= (expr (ws* expr)* ws*) | ws*
+expression_block ::= (expr+) | nl*
 expr ::= (add_group | mul_group | unary_group | boolean_group | cmp_group | standard_group | structure_group | assign_group | constructor_expr | function_call_expr | (simple_ref_expr | qualified_ref_expr) | primary_group)
 
 private unary_group ::= unary_plus_expr | unary_min_expr | array_access_expr
@@ -201,23 +200,23 @@ var_expr ::= variable_declaration
 break_expr ::= break
 continue_expr ::= continue
 
-if_expr ::= if LP condition RP if_block [ ws* else else_block ]
-if_block ::= (LB ws* expression_block ws* RB | expr)
-else_block ::= (LB ws* expression_block ws* RB | expr)
-while_expr ::= while condition LB ws* expression_block ws* RB
-do_while_expr ::= do LB ws* expression_block ws* RB while LP condition RP
-for_each_expr ::= for LP valid_identifier COLON valid_identifier RP LB ws* expression_block ws* RB
+if_expr ::= if LP condition RP if_block [ else else_block ]
+if_block ::= (LB expression_block RB | expr)
+else_block ::= (LB expression_block RB | expr)
+while_expr ::= while condition LB expression_block RB
+do_while_expr ::= do LB expression_block RB while LP condition RP
+for_each_expr ::= for LP valid_identifier COLON valid_identifier RP LB expression_block RB
 
-for_loop_expr ::= for LP for_loop_init SEMI for_loop_condition SEMI for_loop_step RP LB ws* expression_block ws* RB
+for_loop_expr ::= for LP for_loop_init SEMI for_loop_condition SEMI for_loop_step RP LB expression_block RB
 for_loop_init ::= expr
 for_loop_condition ::= expr
 for_loop_step ::= expr
 
 condition ::= expr
 
-function_call_expr ::= valid_identifier LP ws* [parameters_list] ws* RP
+function_call_expr ::= valid_identifier LP [parameters_list] RP
 
-lambda_expr ::= '[' ws* [lambda_parameters_list ws* '|' ws*] expression_block ws* ']'
+lambda_expr ::= '[' [ lambda_parameters_list '|' ] expression_block ']'
 lambda_parameters_list ::= (valid_identifier [COLON valid_type])*
 
 // endregion
