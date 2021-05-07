@@ -86,7 +86,7 @@
         true='true'
         false='false'
 
-        nl='regexp:(\n|\r\n|\r)+'
+        nl='regexp:(\n|\r\n|\r)'
         ws='regexp:\s+'
         line_comment='regexp://.*'
         block_comment='regexp:/\*(.|\n)*\*/'
@@ -99,19 +99,19 @@
 
 }
 
-root ::= nl* [ package_declaration ] [ import_statement* ] classifier_declaration
+root ::= [ package_declaration ] [ import_statement* ] classifier_declaration
 
 // region Package
 package_declaration ::= package package_name
-package_name ::= package_unit [(DOT package_unit)*] [DOT '*'] nl+
+package_name ::= package_unit [(DOT package_unit)*] [DOT '*']
 package_unit ::= id
 import_statement ::= import package_name
 // endregion
 
 // region Classifiers
-classifier_declaration ::= classifier_type valid_identifier (nl)* LB classifier_body RB
+classifier_declaration ::= classifier_type valid_identifier LB classifier_body RB
 classifier_type ::= (class|agent|event|interface|skill|capacity|behavior)
-classifier_body ::= (nl)* (constructor_declaration|uses_declaration|member_declaration|method_declaration|on_declaration)* (nl)*
+classifier_body ::= (constructor_declaration|uses_declaration|member_declaration|method_declaration|on_declaration)*
 
 member_visibility ::= public|private|protected
 member_declaration ::= [ member_visibility ] variable_declaration
@@ -129,10 +129,10 @@ method_declaration ::= [ member_visibility ] function_declaration
 
 constructor_declaration ::= new [parameters_declaration] function_body
 
-function_declaration ::= def valid_identifier [parameters_declaration] [ COLON return_type ] (nl)* function_body
+function_declaration ::= def valid_identifier [parameters_declaration] [ COLON return_type ] function_body
 return_type ::= valid_type
 
-parameters_declaration ::= LP (nl)* (parameter_declaration (nl)* (COMMA (nl)* parameter_declaration)*)? RP
+parameters_declaration ::= LP (parameter_declaration (COMMA parameter_declaration)*)? RP
 parameter_declaration ::= valid_identifier COLON valid_type
 
 parameters_list ::= expr [(COMMA expr)*]
@@ -149,7 +149,7 @@ uses_declaration ::= uses valid_identifier [(COMMA valid_identifier)*]
 // endregion
 
 // region Expression
-expression_block ::= (expr+) | nl*
+expression_block ::= (expr+)
 expr ::= (add_group | mul_group | unary_group | boolean_group | cmp_group | standard_group | structure_group | assign_group | constructor_expr | function_call_expr | (simple_ref_expr | qualified_ref_expr) | primary_group)
 
 private unary_group ::= unary_plus_expr | unary_min_expr | array_access_expr
@@ -226,3 +226,6 @@ valid_type ::= valid_identifier | primitive_type
 primitive_type ::= int | float | double
 valid_identifier ::= this | it | occurrence | id
 // endregion
+
+//line_space ::= nl*
+//line_break ::= nl+

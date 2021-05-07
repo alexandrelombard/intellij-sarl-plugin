@@ -25,8 +25,8 @@ import static io.sarl.idea.language.psi.SarlTypes.*;
 EOL=\R
 WHITE_SPACE=\s+
 
-NL=(\n|\r\n|\r)+
-WHITE_SPACE=[ \t\n\x0B\f\r]+
+NL=(\n|\r\n|\r)
+WS=[ \t\n\x0B\f\r]+
 LINE_COMMENT="//".*
 BLOCK_COMMENT="/"\*(.|\n)*\*"/"
 HEX_NUMBER=0x([0-9A-Fa-f])+
@@ -103,7 +103,7 @@ ID=[A-Za-z][A-Za-z0-9_]*
   "for"                { return FOR; }
 
   {NL}                 { return NL; }
-  {WHITE_SPACE}        { return WHITE_SPACE; }
+  {WS}                 { return WS; }
   {LINE_COMMENT}       { return LINE_COMMENT; }
   {BLOCK_COMMENT}      { return BLOCK_COMMENT; }
   {HEX_NUMBER}         { return HEX_NUMBER; }
