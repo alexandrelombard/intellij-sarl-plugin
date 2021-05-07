@@ -59,12 +59,13 @@
         <lang.foldingBuilder language="SARL" implementationClass="io.sarl.idea.language.SarlFoldingBuilder"/>
 
         <!--File type support-->
-<!--        <internalFileTemplate name="Sarl Class"/>-->
-<!--        <internalFileTemplate name="Sarl Agent"/>-->
-<!--        <internalFileTemplate name="Sarl Behavior"/>-->
-<!--        <internalFileTemplate name="Sarl Capacity"/>-->
-<!--        <internalFileTemplate name="Sarl Event"/>-->
-<!--        <internalFileTemplate name="Sarl Skill"/>-->
+        <internalFileTemplate name="Sarl Class"/>
+        <internalFileTemplate name="Sarl Interface"/>
+        <internalFileTemplate name="Sarl Agent"/>
+        <internalFileTemplate name="Sarl Behavior"/>
+        <internalFileTemplate name="Sarl Capacity"/>
+        <internalFileTemplate name="Sarl Event"/>
+        <internalFileTemplate name="Sarl Skill"/>
     </extensions>
 
     <actions>

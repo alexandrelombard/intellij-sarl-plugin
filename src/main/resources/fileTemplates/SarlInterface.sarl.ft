@@ -1,0 +1,9 @@
+package ${NAME}
+
+/**
+* @author ${AUTHOR}
+*
+*/
+interface ${NAME} {
+
+}
