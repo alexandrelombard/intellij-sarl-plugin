@@ -75,6 +75,9 @@ class NewSarlFileAction : CreateFromTemplateAction<PsiFile>("SARL File", null, S
         if(fileTemplate.name.contains("Class")) {
             return SarlIcons.CLASS
         }
+        if(fileTemplate.name.contains("Interface")) {
+            return SarlIcons.INTERFACE
+        }
         if(fileTemplate.name.contains("Event")) {
             return SarlIcons.EVENT
         }

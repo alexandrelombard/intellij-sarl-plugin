@@ -18,6 +18,8 @@
     <resource-bundle>messages.SarlBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
+        <preloadingActivity implementation="io.sarl.idea.SarlPluginPreloadingActivity"/>
+
         <!-- Project and module creation -->
         <moduleType id="SARL_MODULE" implementationClass="io.sarl.idea.project.SarlModuleType"/>
 
@@ -59,13 +61,13 @@
         <lang.foldingBuilder language="SARL" implementationClass="io.sarl.idea.language.SarlFoldingBuilder"/>
 
         <!--File type support-->
-        <internalFileTemplate name="Sarl Class"/>
-        <internalFileTemplate name="Sarl Interface"/>
-        <internalFileTemplate name="Sarl Agent"/>
-        <internalFileTemplate name="Sarl Behavior"/>
-        <internalFileTemplate name="Sarl Capacity"/>
-        <internalFileTemplate name="Sarl Event"/>
-        <internalFileTemplate name="Sarl Skill"/>
+        <internalFileTemplate name="SarlClass" />
+        <internalFileTemplate name="SarlInterface" />
+        <internalFileTemplate name="SarlAgent" />
+        <internalFileTemplate name="SarlBehavior" />
+        <internalFileTemplate name="SarlCapacity" />
+        <internalFileTemplate name="SarlEvent" />
+        <internalFileTemplate name="SarlSkill" />
     </extensions>
 
     <actions>

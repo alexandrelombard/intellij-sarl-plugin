@@ -12,6 +12,7 @@ object SarlIcons {
     val BEHAVIOR = IconLoader.getIcon("/icons/ic_behavior.svg")
     val CAPACITY = IconLoader.getIcon("/icons/ic_capacity.svg")
     val CLASS = IconLoader.getIcon("/icons/ic_class.svg")
+    val INTERFACE = IconLoader.getIcon("/icons/ic_interface.svg")
     val EVENT = IconLoader.getIcon("/icons/ic_event.svg")
     val SKILL = IconLoader.getIcon("/icons/ic_skill.svg")
 }
