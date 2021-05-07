@@ -149,7 +149,7 @@ uses_declaration ::= uses valid_identifier [(COMMA valid_identifier)*]
 // endregion
 
 // region Expression
-expression_block ::= (expr+)
+expression_block ::= (expr*)
 expr ::= (add_group | mul_group | unary_group | boolean_group | cmp_group | standard_group | structure_group | assign_group | constructor_expr | function_call_expr | (simple_ref_expr | qualified_ref_expr) | primary_group)
 
 private unary_group ::= unary_plus_expr | unary_min_expr | array_access_expr
